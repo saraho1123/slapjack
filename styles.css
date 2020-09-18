@@ -1,0 +1,40 @@
+html {
+  font-family: "Gill Sans"
+}
+
+h1 {
+  text-align: center;
+}
+
+.header {
+  font-size: 5em;
+}
+body {
+  background: #023403;
+  color: white;
+}
+
+
+
+.game-table {
+  display: flex;
+  justify-content: space-around;
+}
+
+img {
+  height: 16em;
+  width:10em;
+}
+
+.game-deck {
+  margin: 2em;
+  box-shadow: 10px 10px orange;
+}
+
+.isaac-player-deck {
+  box-shadow: 10px 10px deepskyblue;
+}
+
+.mom-player-deck {
+  box-shadow: 10px 10px purple;
+}
