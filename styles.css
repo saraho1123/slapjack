@@ -25,4 +25,13 @@ img {
 
 .game-deck {
   margin: 2em;
+  box-shadow: 10px 10px orange;
+}
+
+.isaac-player-deck {
+  box-shadow: 10px 10px deepskyblue;
+}
+
+.mom-player-deck {
+  box-shadow: 10px 10px purple;
 }
