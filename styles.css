@@ -1,0 +1,28 @@
+html {
+  font-family: "Gill Sans"
+}
+header {
+  text-align: center;
+}
+body {
+  background: #023403;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+}
+
+.game-table {
+  display: flex;
+  justify-content: space-around;
+}
+
+img {
+  height: 16em;
+  width:10em;
+}
+
+.game-deck {
+  margin: 2em;
+}
