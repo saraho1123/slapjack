@@ -8,6 +8,8 @@ class Game {
 
   shuffleDeck() {
     // look up Fisher-yates shuffle??
+    // or just shuffling in general?
+    // or can I just use the random function from romcom?
   }
 
   dealHand() {
