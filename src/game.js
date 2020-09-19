@@ -1,7 +1,7 @@
 class Game {
   constructor(playerDetails) {
-    this.playerIsaac; // I am not sure how to assign these just yet. Or if they
-    this.playerMom; //
+    this.playerIsaac = playerDetails; // I am not sure how to assign these just yet. Or if they
+    this.playerMom = playerDetails; //
     // this.cardDeck = []; // array of cards (possibly an array of objects?) I put this below for now;
     this.gamePile; // I think this needs to be assigned in the updateGamePile()
 
@@ -9,7 +9,7 @@ class Game {
   // translate it to the DOM when the time comes. I put href, but I'm thinking I'll
   // need to change this to src??
 
-  // consider shortening this array as you are building in order to test it!
+  // consider shortening this array as you are working in order to test it!
 
     this.cardDeck = [
       {class: "blue-A", href: ".assets/blue-01.png"},
@@ -72,18 +72,14 @@ class Game {
     // I realize this will need more, but I already know I will need it to play the game!
   }
 
+  // function getRandomIndex(array) {
+  //   return Math.floor(Math.random() * array.length);
+  // }
 
-  shuffleDeck() {
+  shuffleDeck(deckToShuffle) {
     // look up Fisher-yates shuffle??
     // or just shuffling in general?
     // or can I just use the random function from romcom?
-  }
-
-  function getRandomIndex(array) {
-    return Math.floor(Math.random() * array.length);
-  }
-
-  function shuffle(cardDeck) {
     for (var i = cardDeck.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * i);
         var tempArray = cardDeck[i];
@@ -92,12 +88,15 @@ class Game {
     }
     this.cardDeck = cardDeck[j]; //when I was testing this, I used a return, but I think this is what I want to do.
 };
+
+
 // this is what I found for Fisher-yates shuffle. I understand it for the most part.
 // I don't understand array[j] fully though. Ask Taras!
 
   dealHand() {
-    // Need to research but this method might be part of shuffleDeck()?
-    
+    // Need to research
+    // FOR LOOP through shuffled cardDeck array.
+    // push into playerDetails.hand
   }
 
   updateGamePile() {
