@@ -1,6 +1,6 @@
 class Player {
   constructor(wins, hand) {
-    this.id = Date.now();
+    // this.id = Date.now();
     this.wins = wins; // this probably needs to be an interger!
     this.hand = []; // I think I need a method in game? that shuffles and deals the hands
                 // and assigns it to playerDetails.hand.

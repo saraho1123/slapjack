@@ -1,9 +1,9 @@
 
 
 class Game {
-  constructor(playerDetails) {
-    this.playerIsaac = playerDetails; // I am not sure how to assign these just yet. Or if they
-    this.playerMom = playerDetails; //
+  constructor(playerDetailsIsaac, playerDetailsMom) {
+    this.playerIsaac = playerDetailsIsaac; // I am not sure how to assign these just yet. Or if they
+    this.playerMom = playerDetailsMom; //
     // this.cardDeck = []; // array of cards (possibly an array of objects?) I put this below for now;
     this.gamePile; // I think this needs to be assigned in the updateGamePile()
 
@@ -82,22 +82,24 @@ class Game {
     // look up Fisher-yates shuffle??
     // or just shuffling in general?
     // or can I just use the random function from romcom?
-    for (var i = cardDeck.length - 1; i > 0; i--) {
+    for (var i = deckToShuffle.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * i);
-        var tempArray = cardDeck[i];
-        cardDeck[i] = cardDeck[j];
-        cardDeck[j] = tempArray;
+        var tempArray = deckToShuffle[i];
+        deckToShuffle[i] = deckToShuffle[j];
+        deckToShuffle[j] = tempArray;
     }
-    this.cardDeck = cardDeck[j]; //when I was testing this, I used a return, but I think this is what I want to do.
+    // this.cardDeck = deckToShuffle[j]; //when I was testing this, I used a return, but I think this is what I want to do.
 };
 
 // this is what I found for Fisher-yates shuffle. I understand it for the most part.
 // I don't understand array[j] fully though. Ask Taras!
 
   dealHand(shuffledDeck) {
-    for (var i = 0; i < shuffleDeck.length; i++) {
-      if (shuffleDeck[i] % 2 == 0) {
+    for (var i = 0; i < shuffledDeck.length; i++) {
+      if (i % 2 == 0) {
         this.playerIsaac.hand.push(shuffledDeck[i])
+        console.log(this.playerIsaac);
+
       } else {
         this.playerMom.hand.push(shuffledDeck[i])
       }
