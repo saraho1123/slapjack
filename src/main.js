@@ -1,7 +1,6 @@
 
-var playerIsaac = new Player(0)
-var playerMom = new Player(0)
-var newGame = new Game(playerIsaac, playerMom)
+var newGame = new Game();
 
+// methods from Game class that are working so far!
 newGame.shuffleDeck(newGame.cardDeck);
-// newGame.dealHand(newGame.cardDeck);
+newGame.dealHand(newGame.cardDeck);

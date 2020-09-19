@@ -2,17 +2,10 @@
 
 class Game {
   constructor(playerDetailsIsaac, playerDetailsMom) {
-    this.playerIsaac = playerDetailsIsaac; // I am not sure how to assign these just yet. Or if they
-    this.playerMom = playerDetailsMom; //
-    // this.cardDeck = []; // array of cards (possibly an array of objects?) I put this below for now;
+    this.playerIsaac = playerDetailsIsaac;
+    this.playerMom = playerDetailsMom;
     this.gamePile; // I think this needs to be assigned in the updateGamePile()
-
-  // I think I want my cardDeck to be an array of objects so that it is easy to
-  // translate it to the DOM when the time comes. I put href, but I'm thinking I'll
-  // need to change this to src??
-
-  // consider shortening this array as you are working in order to test it!
-
+    // consider shortening this array as you are working in order to test it!
     this.cardDeck = [
       {class: "blue-A", src: ".assets/blue-01.png"},
       {class: "blue-2", src: ".assets/blue-02.png"},
@@ -69,47 +62,25 @@ class Game {
     ];
   }
 
-  instantiatePlayer(player) {
-    var player = new Player(wins, hand);
-    // I realize this will need more, but I already know I will need it to play the game!
+  instantiatePlayers() {
+    this.playerIsaac = new Player(0);
+    this.playerMom = new Player(0);
   }
 
-  // function getRandomIndex(array) {
-  //   return Math.floor(Math.random() * array.length);
-  // }
-
   shuffleDeck(deckToShuffle) {
-    // look up Fisher-yates shuffle??
-    // or just shuffling in general?
-    // or can I just use the random function from romcom?
     for (var i = deckToShuffle.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * i);
         var tempArray = deckToShuffle[i];
         deckToShuffle[i] = deckToShuffle[j];
         deckToShuffle[j] = tempArray;
     }
-    // this.cardDeck = deckToShuffle[j]; //when I was testing this, I used a return, but I think this is what I want to do.
-};
-
-// this is what I found for Fisher-yates shuffle. I understand it for the most part.
-// I don't understand array[j] fully though. Ask Taras!
+  }
 
   dealHand(shuffledDeck) {
+    this.instantiatePlayers();
     for (var i = 0; i < shuffledDeck.length; i++) {
-      if (i % 2 == 0) {
-        this.playerIsaac.hand.push(shuffledDeck[i])
-        console.log(this.playerIsaac);
-
-      } else {
-        this.playerMom.hand.push(shuffledDeck[i])
-      }
+      i % 2 ? this.playerIsaac.hand.push(shuffledDeck[i]) : this.playerMom.hand.push(shuffledDeck[i]);
     }
-    // Need to research
-    // FOR LOOP through shuffled cardDeck array.
-    // % to deal
-    // could this be a splice or slice? to remove half the cards from cardDeck
-    // and push into one players hand and then the rest into the other?
-    // push into playerDetails.hand
   }
 
   updateGamePile() {
