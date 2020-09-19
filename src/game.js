@@ -1,10 +1,11 @@
 
 
 class Game {
-  constructor(playerDetailsIsaac, playerDetailsMom) {
-    this.playerIsaac = playerDetailsIsaac;
-    this.playerMom = playerDetailsMom;
-    this.gamePile; // I think this needs to be assigned in the updateGamePile()
+  constructor() {
+    this.playerIsaac;
+    this.playerMom;
+    this.currentPlayer;
+    this.gamePile = []; // I think this needs to be assigned in the updateGamePile()
     // consider shortening this array as you are working in order to test it!
     this.cardDeck = [
       {class: "blue-A", src: ".assets/blue-01.png"},
@@ -63,8 +64,8 @@ class Game {
   }
 
   instantiatePlayers() {
-    this.playerIsaac = new Player(0);
-    this.playerMom = new Player(0);
+    this.playerIsaac = new Player("Isaac", 0);
+    this.playerMom = new Player("Mom", 0);
   }
 
   shuffleDeck(deckToShuffle) {
@@ -84,7 +85,16 @@ class Game {
   }
 
   updateGamePile() {
-
+    var cardPlayed;
+    if (this.currentPlayer === "Isaac") {
+      cardPlayed = this.playerIsaac.playCard();
+      this.gamePile.push(cardPlayed);
+      this.currentPlayer = this.playerMom.id;
+    } else {
+      cardPlayed = this.playerMom.playCard();
+      this.gamePile.push(cardPlayed);
+      this.currentPlayer = this.playerIsaac.id;
+    }
     // this will hold the last card played (by either player)
     // ie: a randomly drawn card from the playerDetails.hand array
     // this will need to keep track of the cards for sandwich and double win conditions
