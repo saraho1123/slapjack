@@ -98,7 +98,7 @@ class Game {
       this.updatePlayerTurn();
     }
     console.log(cardPlayed);
-    console.log(newGame);
+    console.log(currentGame);
     // DOM: this will need to be called in main.js to update html 'game-pile' element
   }
 

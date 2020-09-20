@@ -30,6 +30,17 @@ img {
   box-shadow: 10px 10px orange;
 }
 
+.start-slapjack {
+  background: orange;
+  border: none;
+  border-radius: 5px;
+  height: 3em;
+  color: #0794f7;
+  font-weight: bolder;
+  font-size: large;
+  margin-top: 5em;
+}
+
 .isaac-play-shadow {
   box-shadow: 10px 10px deepskyblue;
 }
@@ -50,4 +61,8 @@ p {
 .mom-wins {
   color: purple;
   font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }
