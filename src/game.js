@@ -1,9 +1,13 @@
+// TODO Sunday: look at updatePlayerTurn ... if one player's hand array is empty,
+// I need it to only  play from the other hand array.
 
+// TODO Sunday: look at playSlapJack. Sometimes it skips to Oops(console.log).
+// I think it is happening on the second time a jack comes up?
 
 class Game {
   constructor() {
-    this.playerIsaac = new Player("Isaac", 0);
-    this.playerMom = new Player("Mom", 0);;
+    this.playerIsaac = new Player("Isaac");
+    this.playerMom = new Player("Mom");;
     this.currentPlayer = this.playerIsaac;
     this.gamePile = [];
     // consider shortening this array as you are working in order to test it!
@@ -22,45 +26,46 @@ class Game {
       {suit: "blue",  value: "queen", src: ".assets/blue-queen.png"},
       {suit: "blue",  value: "king", src: ".assets/blue-king.png"},
       {suit: "gold-A",  value: "A", src: ".assets/gold-01.png"},
-      {suit: "gold-2",  value: "2", src: ".assets/gold-02.png"},
-      {suit: "gold-3",  value: "3", src: ".assets/gold-03.png"},
-      {suit: "gold-4",  value: "4", src: ".assets/gold-04.png"},
-      {suit: "gold-5",  value: "5", src: ".assets/gold-05.png"},
-      {suit: "gold-6",  value: "6", src: ".assets/gold-06.png"},
-      {suit: "gold-7",  value: "7", src: ".assets/gold-07.png"},
-      {suit: "gold-8",  value: "8", src: ".assets/gold-08.png"},
-      {suit: "gold-9",  value: "9", src: ".assets/gold-09.png"},
-      {suit: "gold-10",  value: "10", src: ".assets/gold-10.png"},
-      {suit: "gold-jack",  value: "jack", src: ".assets/gold-jack.png"},
-      {suit: "gold-queen",  value: "queen", src: ".assets/gold-queen.png"},
-      {suit: "gold-king",  value: "king", src: ".assets/gold-king.png"},
-      {suit: "green-A",  value: "A", src: ".assets/green-01.png"},
-      {suit: "green-2",  value: "2", src: ".assets/green-02.png"},
-      {suit: "green-3",  value: "3", src: ".assets/green-03.png"},
-      {suit: "green-4",  value: "4", src: ".assets/green-04.png"},
-      {suit: "green-5",  value: "5", src: ".assets/green-05.png"},
-      {suit: "green-6",  value: "6", src: ".assets/green-06.png"},
-      {suit: "green-7",  value: "7", src: ".assets/green-07.png"},
-      {suit: "green-8",  value: "8", src: ".assets/green-08.png"},
-      {suit: "green-9",  value: "9", src: ".assets/green-09.png"},
-      {suit: "green-10",  value: "10", src: ".assets/green-10.png"},
-      {suit: "green-jack",  value: "jack", src: ".assets/green-jack.png"},
-      {suit: "green-queen",  value: "queen", rc: ".assets/green-queen.png"},
-      {suit: "green-king",  value: "king", src: ".assets/green-king.png"},
-      {suit: "red-A",  value: "A", src: ".assets/red-01.png"},
-      {suit: "red-2",  value: "2", src: ".assets/red-02.png"},
-      {suit: "red-3",  value: "3", src: ".assets/red-03.png"},
-      {suit: "red-4",  value: "4", src: ".assets/red-04.png"},
-      {suit: "red-5",  value: "5", src: ".assets/red-05.png"},
-      {suit: "red-6",  value: "6", src: ".assets/red-06.png"},
-      {suit: "red-7",  value: "7", src: ".assets/red-07.png"},
-      {suit: "red-8",  value: "8", src: ".assets/red-08.png"},
-      {suit: "red-9",  value: "9", src: ".assets/red-09.png"},
-      {suit: "red-10",  value: "10", src: ".assets/red-10.png"},
-      {suit: "red-jack",  value: "jack", src: ".assets/red-jack.png"},
-      {suit: "red-queen",  value: "queen", src: ".assets/red-queen.png"},
-      {suit: "red-king",  value: "king", src: ".assets/red-king.png"},
+      // {suit: "gold-2",  value: "2", src: ".assets/gold-02.png"},
+      // {suit: "gold-3",  value: "3", src: ".assets/gold-03.png"},
+      // {suit: "gold-4",  value: "4", src: ".assets/gold-04.png"},
+      // {suit: "gold-5",  value: "5", src: ".assets/gold-05.png"},
+      // {suit: "gold-6",  value: "6", src: ".assets/gold-06.png"},
+      // {suit: "gold-7",  value: "7", src: ".assets/gold-07.png"},
+      // {suit: "gold-8",  value: "8", src: ".assets/gold-08.png"},
+      // {suit: "gold-9",  value: "9", src: ".assets/gold-09.png"},
+      // {suit: "gold-10",  value: "10", src: ".assets/gold-10.png"},
+      // {suit: "gold-jack",  value: "jack", src: ".assets/gold-jack.png"},
+      // {suit: "gold-queen",  value: "queen", src: ".assets/gold-queen.png"},
+      // {suit: "gold-king",  value: "king", src: ".assets/gold-king.png"},
+      // {suit: "green-A",  value: "A", src: ".assets/green-01.png"},
+      // {suit: "green-2",  value: "2", src: ".assets/green-02.png"},
+      // {suit: "green-3",  value: "3", src: ".assets/green-03.png"},
+      // {suit: "green-4",  value: "4", src: ".assets/green-04.png"},
+      // {suit: "green-5",  value: "5", src: ".assets/green-05.png"},
+      // {suit: "green-6",  value: "6", src: ".assets/green-06.png"},
+      // {suit: "green-7",  value: "7", src: ".assets/green-07.png"},
+      // {suit: "green-8",  value: "8", src: ".assets/green-08.png"},
+      // {suit: "green-9",  value: "9", src: ".assets/green-09.png"},
+      // {suit: "green-10",  value: "10", src: ".assets/green-10.png"},
+      // {suit: "green-jack",  value: "jack", src: ".assets/green-jack.png"},
+      // {suit: "green-queen",  value: "queen", rc: ".assets/green-queen.png"},
+      // {suit: "green-king",  value: "king", src: ".assets/green-king.png"},
+      // {suit: "red-A",  value: "A", src: ".assets/red-01.png"},
+      // {suit: "red-2",  value: "2", src: ".assets/red-02.png"},
+      // {suit: "red-3",  value: "3", src: ".assets/red-03.png"},
+      // {suit: "red-4",  value: "4", src: ".assets/red-04.png"},
+      // {suit: "red-5",  value: "5", src: ".assets/red-05.png"},
+      // {suit: "red-6",  value: "6", src: ".assets/red-06.png"},
+      // {suit: "red-7",  value: "7", src: ".assets/red-07.png"},
+      // {suit: "red-8",  value: "8", src: ".assets/red-08.png"},
+      // {suit: "red-9",  value: "9", src: ".assets/red-09.png"},
+      // {suit: "red-10",  value: "10", src: ".assets/red-10.png"},
+      // {suit: "red-jack",  value: "jack", src: ".assets/red-jack.png"},
+      // {suit: "red-queen",  value: "queen", src: ".assets/red-queen.png"},
+      // {suit: "red-king",  value: "king", src: ".assets/red-king.png"},
     ];
+    // consider putting this in a seperate src file?
   }
 
   // instantiatePlayers() {
@@ -104,9 +109,9 @@ class Game {
   }
 
   updatePlayerTurn() {
-    if (this.currentPlayer.id === "Isaac") {
+    if (this.currentPlayer.id === "Isaac" && this.playerMom.hand !== []) {
       this.currentPlayer = this.playerMom;
-    } else {
+    } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand !== []) {
       this.currentPlayer = this.playerIsaac;
     }
     // This needs to be refactored using args/params (see updateGamePile())
@@ -120,18 +125,15 @@ class Game {
     // I think this actually needs to have the conditionals for wins
     if (this.gamePile[0].suit.includes("jack")) {
       console.log("SLAPJACK!");
-      player.hand = player.hand.concat(this.gamePile);
-      this.gamePile = [];
+      this.slapATrueCondition(player);
       this.shuffleDeck(player.hand);
     } else if (this.gamePile[0].value === this.gamePile[1].value) {
       console.log("DOUBLE!")
-      player.hand = player.hand.concat(this.gamePile);
-      this.gamePile = [];
+      this.slapATrueCondition(player);
       this.shuffleDeck(player.hand);
     } else if (this.gamePile[0].value === this.gamePile[2].value) {
       console.log("SANDWICH!");
-      player.hand = player.hand.concat(this.gamePile);
-      this.gamePile = [];
+      this.slapATrueCondition(player);
       this.shuffleDeck(player.hand);
     } else {
       console.log("OOPS!");
@@ -140,11 +142,27 @@ class Game {
     }
   }
 
-    // this will simply (I hope) randomly pull a card from one playerDetails.hand array.
-    // also I think it makes more sense to run this function BEFORE updateGamePile()
+  slapATrueCondition(playerWhoSlaps) {
+    playerWhoSlaps.hand = playerWhoSlaps.hand.concat(this.gamePile);
+    this.gamePile = [];
+  }
 
-  updateWins() {
+  updateWins(playerWhoSlaps) {
+    if (this.playerIsaac.hand === [] &&  playerWhoSlaps.id === "Mom") {
+      console.log("Mom wins!");
+      this.playerMom.wins++;
+    } else if (this.playerMom.hand === [] && playerWhoSlaps.id === "Isaac") {
+      console.log("Isaac wins!");
+      this.playerIsaac.wins++;
+    }
+    // this.currentPlayer.wins++;
+
+
     // this will hold the conditions for a win:
+
+    // It seems like all this needs to go in the main.js
+    // there is probably a way to determing the winner without a listener on the key down for f and j,
+    // but I think it is beyond my logic ability right now.
     // f or j keyup when a jack, double or sandwich is in the gamePile
     // when win condition is met, update the win for that playerDetails.wins
     // I am thinking:
