@@ -1,16 +1,25 @@
 
-var newGame = new Game();
+var currentGame = new Game();
 
-document.addEventListener("keyup", slap)
+// query selectors:
+var gameUpdateMessage = document.querySelector(".update-message");
+var isaacCardDeck = document.querySelector(".isaac-player-deck");
+var momCardDeck = document.querySelector(".mom-player-deck");
+var gamePile = document.querySelector(".game-deck");
+var isaacWins = document.querySelector(".isaac-wins");
+var momWins = document.querySelector(".mom-wins");
+
+// event listeners:
+document.addEventListener("keydown", slap)
 
 // methods from Game class that are working so far!
-newGame.shuffleDeck(newGame.cardDeck);
-newGame.dealHand(newGame.cardDeck);
-// newGame.updateGamePile( this will need to be connected to 'p' and 'q');
+currentGame.shuffleDeck(currentGame.cardDeck);
+currentGame.dealHand(currentGame.cardDeck);
+// currentGame.updateGamePile( this will need to be connected to 'p' and 'q');
 // slapATrueCondition(connect this to 'f' and 'j' keydowns);
 // updateWins( need to connect this to slapATrueCondition with correct params);
 
-// newGame.playSlapJack(newGame.currentPlayer);
+// currentGame.playSlapJack(currentGame.currentPlayer);
 // will need to update this to be whether f or j is keydown
 // but for now, I don't know how to determine who slaps in the data model
 
