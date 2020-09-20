@@ -1,9 +1,6 @@
 // TODO Sunday: look at updatePlayerTurn ... if one player's hand array is empty,
 // I need it to only  play from the other hand array.
 
-// TODO Sunday: look at playSlapJack. Sometimes it skips to Oops(console.log).
-// I think it is happening on the second time a jack comes up?
-
 class Game {
   constructor() {
     this.playerIsaac = new Player("Isaac");
@@ -12,21 +9,21 @@ class Game {
     this.gamePile = [];
     // consider shortening this array as you are working in order to test it!
     this.cardDeck = [
-      {suit: "blue", value: "A", src: ".assets/blue-01.png"},
-      {suit: "blue",  value: "2", src: ".assets/blue-02.png"},
-      {suit: "blue",  value: "3", src: ".assets/blue-03.png"},
-      {suit: "blue",  value: "4", src: ".assets/blue-04.png"},
-      {suit: "blue",  value: "5", src: ".assets/blue-05.png"},
-      {suit: "blue",  value: "6", src: ".assets/blue-06.png"},
-      {suit: "blue",  value: "7", src: ".assets/blue-07.png"},
-      {suit: "blue",  value: "8", src: ".assets/blue-08.png"},
-      {suit: "blue",  value: "9", src: ".assets/blue-09.png"},
-      {suit: "blue",  value: "10", src: ".assets/blue-10.png"},
-      {suit: "blue",  value: "jack", src: ".assets/blue-jack.png"},
-      {suit: "blue",  value: "queen", src: ".assets/blue-queen.png"},
-      {suit: "blue",  value: "king", src: ".assets/blue-king.png"},
-      {suit: "gold-A",  value: "A", src: ".assets/gold-01.png"},
-      // {suit: "gold-2",  value: "2", src: ".assets/gold-02.png"},
+      // {suit: "blue-A", value: "A", src: ".assets/blue-01.png"},
+      {suit: "blue-2",  value: "2", src: ".assets/blue-02.png"},
+      // {suit: "blue-3",  value: "3", src: ".assets/blue-03.png"},
+      // {suit: "blue-4",  value: "4", src: ".assets/blue-04.png"},
+      // {suit: "blue-5",  value: "5", src: ".assets/blue-05.png"},
+      // {suit: "blue-6",  value: "6", src: ".assets/blue-06.png"},
+      // {suit: "blue-7",  value: "7", src: ".assets/blue-07.png"},
+      // {suit: "blue-8",  value: "8", src: ".assets/blue-08.png"},
+      // {suit: "blue-9",  value: "9", src: ".assets/blue-09.png"},
+      // {suit: "blue-10",  value: "10", src: ".assets/blue-10.png"},
+      {suit: "blue-jack",  value: "jack", src: ".assets/blue-jack.png"},
+      // {suit: "blue-queen",  value: "queen", src: ".assets/blue-queen.png"},
+      // {suit: "blue-king",  value: "king", src: ".assets/blue-king.png"},
+      // {suit: "gold-A",  value: "A", src: ".assets/gold-01.png"},
+      {suit: "gold-2",  value: "2", src: ".assets/gold-02.png"},
       // {suit: "gold-3",  value: "3", src: ".assets/gold-03.png"},
       // {suit: "gold-4",  value: "4", src: ".assets/gold-04.png"},
       // {suit: "gold-5",  value: "5", src: ".assets/gold-05.png"},
@@ -39,7 +36,7 @@ class Game {
       // {suit: "gold-queen",  value: "queen", src: ".assets/gold-queen.png"},
       // {suit: "gold-king",  value: "king", src: ".assets/gold-king.png"},
       // {suit: "green-A",  value: "A", src: ".assets/green-01.png"},
-      // {suit: "green-2",  value: "2", src: ".assets/green-02.png"},
+      {suit: "green-2",  value: "2", src: ".assets/green-02.png"},
       // {suit: "green-3",  value: "3", src: ".assets/green-03.png"},
       // {suit: "green-4",  value: "4", src: ".assets/green-04.png"},
       // {suit: "green-5",  value: "5", src: ".assets/green-05.png"},
@@ -52,7 +49,7 @@ class Game {
       // {suit: "green-queen",  value: "queen", rc: ".assets/green-queen.png"},
       // {suit: "green-king",  value: "king", src: ".assets/green-king.png"},
       // {suit: "red-A",  value: "A", src: ".assets/red-01.png"},
-      // {suit: "red-2",  value: "2", src: ".assets/red-02.png"},
+      {suit: "red-2",  value: "2", src: ".assets/red-02.png"},
       // {suit: "red-3",  value: "3", src: ".assets/red-03.png"},
       // {suit: "red-4",  value: "4", src: ".assets/red-04.png"},
       // {suit: "red-5",  value: "5", src: ".assets/red-05.png"},
@@ -92,7 +89,12 @@ class Game {
 
   updateGamePile() {
     var cardPlayed;
-    if (this.currentPlayer.id === "Isaac") {
+    if (this.currentPlayer === undefined) { // need to change what this does!
+      this.shuffleDeck(this.gamePile);
+      this.dealHand(this.gamePile);
+      this.gamepile = [];
+      this.currentPlayer = this.playerIsaac;
+    } else if (this.currentPlayer.id === "Isaac") {
       cardPlayed = this.playerIsaac.playCard();
       this.gamePile.unshift(cardPlayed);
       this.updatePlayerTurn();
@@ -102,17 +104,18 @@ class Game {
       this.updatePlayerTurn();
     }
     console.log(cardPlayed);
-    // this will hold the last card played (by either player)
-    // ie: a randomly drawn card from the playerDetails.hand array
-    // this will need to keep track of the cards for sandwich and double win conditions
+    console.log(newGame);
     // DOM: this will need to be called in main.js to update html 'game-pile' element
   }
 
   updatePlayerTurn() {
-    if (this.currentPlayer.id === "Isaac" && this.playerMom.hand !== []) {
+    if (this.currentPlayer.id === "Isaac" && this.playerMom.hand[0] !== undefined) {
       this.currentPlayer = this.playerMom;
-    } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand !== []) {
+    } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
       this.currentPlayer = this.playerIsaac;
+    } else {
+      debugger
+      this.currentPlayer = undefined;
     }
     // This needs to be refactored using args/params (see updateGamePile())
 
@@ -121,19 +124,21 @@ class Game {
   }
 
   playSlapJack(player) {
-    // this has a bug! error if an attempt is made before 3 cards are played.
-    // I think this actually needs to have the conditionals for wins
+    // this has a bug! error if a slap attempt is made before 3 cards are played.
     if (this.gamePile[0].suit.includes("jack")) {
       console.log("SLAPJACK!");
       this.slapATrueCondition(player);
+      this.updateWins(player);
       this.shuffleDeck(player.hand);
     } else if (this.gamePile[0].value === this.gamePile[1].value) {
       console.log("DOUBLE!")
       this.slapATrueCondition(player);
+      this.updateWins(player)
       this.shuffleDeck(player.hand);
     } else if (this.gamePile[0].value === this.gamePile[2].value) {
       console.log("SANDWICH!");
       this.slapATrueCondition(player);
+      this.updateWins(playerWhoSlaps)
       this.shuffleDeck(player.hand);
     } else {
       console.log("OOPS!");
@@ -148,12 +153,14 @@ class Game {
   }
 
   updateWins(playerWhoSlaps) {
-    if (this.playerIsaac.hand === [] &&  playerWhoSlaps.id === "Mom") {
+    if (this.playerIsaac.hand[0] === undefined &&  playerWhoSlaps.id === "Mom") {
       console.log("Mom wins!");
       this.playerMom.wins++;
-    } else if (this.playerMom.hand === [] && playerWhoSlaps.id === "Isaac") {
+      this.gamePile = [];
+    } else if (this.playerMom.hand[0] === undefined && playerWhoSlaps.id === "Isaac") {
       console.log("Isaac wins!");
       this.playerIsaac.wins++;
+      this.gamePile = [];
     }
     // this.currentPlayer.wins++;
 
