@@ -6,7 +6,9 @@ document.addEventListener("keyup", slap)
 // methods from Game class that are working so far!
 newGame.shuffleDeck(newGame.cardDeck);
 newGame.dealHand(newGame.cardDeck);
-// newGame.updateGamePile();
+// newGame.updateGamePile( this will need to be connected to 'p' and 'q');
+// slapATrueCondition(connect this to 'f' and 'j' keydowns);
+// updateWins( need to connect this to slapATrueCondition with correct params);
 
 // newGame.playSlapJack(newGame.currentPlayer);
 // will need to update this to be whether f or j is keydown
