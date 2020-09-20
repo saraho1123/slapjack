@@ -11,8 +11,7 @@ var momWins = document.querySelector(".mom-wins");
 var startGameButton = document.querySelector(".start-slapjack");
 
 // event listeners:
-document.addEventListener("keydown", slap);
-document.addEventListener("keydown", playCard);
+document.addEventListener("keydown", playHandler);
 startGameButton.addEventListener("click", startGame);
 
 // methods from Game class that are working so far!
@@ -22,35 +21,43 @@ startGameButton.addEventListener("click", startGame);
 // updateATrueConditionSlap(); // connect this to 'f' and 'j' keydowns
 // updateWins(); // connect this to slapATrueCondition with correct params
 
+function playHandler(event) {
+  playCard(event);
+  slap(event);
+}
+
 function startGame() {
   startGameButton.classList.add("hidden");
   gamePile.classList.remove("hidden");
+  gamePile.src = "./assets/wild.png";
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
 }
 
 function playCard(event) {
-  event.preventDefault();
-  console.log('play card - Does this trigger other keys?');
   if (event.key == 'q') {
     console.log('Isaac card played.');
     currentGame.currentPlayer = currentGame.playerIsaac;
     currentGame.updateGamePile();
+    displayPlayedCard();
   } else if (event.key == 'p') {
     console.log('Mom card played.');
     currentGame.currentPlayer = currentGame.playerMom;
     currentGame.updateGamePile();
+    displayPlayedCard();
   }
 }
 
 function displayPlayedCard() {
-
-  currentGame.gamePile
+  if (currentGame.gamePile.length === 0) {
+    startGameButton.classList.remove("hidden");
+    gamePile.classList.add("hidden");
+  } else {
+    gamePile.src = currentGame.gamePile[0].src;
+  }
 }
 
 function slap(event) {
-  event.preventDefault();
-  console.log('SLAP!');
   if (event.key == 'f') {
     console.log('Isaac Slap!');
     currentGame.playSlapJack(currentGame.playerIsaac);
