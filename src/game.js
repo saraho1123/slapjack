@@ -83,11 +83,6 @@ class Game {
 
   updateGamePile() {
     var cardPlayed;
-    // if (this.currentPlayer === undefined) { // need to change what this does!
-    //   this.shuffleDeck(this.gamePile);
-    //   this.currentPlayer;
-    //   this.gamepile = [];
-    //   this.currentPlayer = this.playerIsaac;
     if (this.currentPlayer.id === "Isaac") {
       cardPlayed = this.playerIsaac.playCard();
       this.gamePile.unshift(cardPlayed);

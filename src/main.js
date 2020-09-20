@@ -8,10 +8,12 @@ var momCardDeck = document.querySelector(".mom-player-deck");
 var gamePile = document.querySelector(".game-deck");
 var isaacWins = document.querySelector(".isaac-wins");
 var momWins = document.querySelector(".mom-wins");
+var startGameButton = document.querySelector(".start-slapjack");
 
 // event listeners:
 document.addEventListener("keydown", slap);
 document.addEventListener("keydown", playCard);
+startGameButton.addEventListener("click", startGame);
 
 // methods from Game class that are working so far!
 // currentGame.shuffleDeck(currentGame.cardDeck);
@@ -19,6 +21,13 @@ document.addEventListener("keydown", playCard);
 // currentGame.updateGamePile(); // connect to 'p' and 'q'
 // updateATrueConditionSlap(); // connect this to 'f' and 'j' keydowns
 // updateWins(); // connect this to slapATrueCondition with correct params
+
+function startGame() {
+  startGameButton.classList.add("hidden");
+  gamePile.classList.remove("hidden");
+  currentGame.shuffleDeck(currentGame.cardDeck);
+  currentGame.dealHand(currentGame.cardDeck);
+}
 
 function playCard(event) {
   event.preventDefault();
@@ -32,6 +41,11 @@ function playCard(event) {
     currentGame.currentPlayer = currentGame.playerMom;
     currentGame.updateGamePile();
   }
+}
+
+function displayPlayedCard() {
+
+  currentGame.gamePile
 }
 
 function slap(event) {
