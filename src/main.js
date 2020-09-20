@@ -30,11 +30,11 @@ function startGame() {
 }
 
 function playHandler(event) {
-  playCard(event);
+  layCard(event);
   slap(event);
 }
 
-function playCard(event) {
+function layCard(event) {
   if (event.key == 'q') {
     console.log('Isaac card played.');
     currentGame.currentPlayer = currentGame.playerIsaac;
@@ -54,24 +54,54 @@ function displayPlayedCard() {
     gamePile.classList.add('hidden');
   } else {
     gamePile.src = currentGame.gamePile[0].src;
+    changePlayerShadow();
   }
+}
+
+function changePlayerShadow() {
+  if (currentGame.currentPlayer.id === 'Isaac') {
+    currentGame.currentPlayer = currentGame.playerMom;
+    isaacCardDeck.classList.remove('isaac-play-shadow');
+    momCardDeck.classList.add('mom-play-shadow');
+  } else if (currentGame.currentPlayer.id === 'Mom') {
+      currentGame.currentPlayer = currentGame.playerIsaac;
+      momCardDeck.classList.remove('mom-play-shadow');
+      isaacCardDeck.classList.add('isaac-play-shadow');
+    }
 }
 
 function slap(event) {
   var gameDeck = document.querySelector('.game-deck');
   if (event.key == 'f') {
     console.log('Isaac Slap!');
-    gameUpdateMessage.innerText = "🤠🐉Isaac won the slap!🐉🤠"
+    gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
     currentGame.playSlapJack(currentGame.playerIsaac);
     gamePile.src = './assets/isaac-cardback.jpeg';
+    winningSlap();
   } else if (event.key == 'j') {
     console.log('Mom Slap!');
-    gameUpdateMessage.innerText = "🥳🟣Mom won the slap!🟣🥳"
+    gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
     currentGame.playSlapJack(currentGame.playerMom);
     gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
+    winningSlap();
   }
 }
 
+function winningSlap() {
+  var isaacTotalWins = document.querySelector('.isaac-total-wins');
+  var momTotalWins = document.querySelector('.mom-total-wins');
+  if (currentGame.playerIsaac.wins > 0) {
+    gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
+    startGameButton.classList.remove('hidden');
+    gamePile.classList.add('hidden');
+    isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
+  } else if (currentGame.playerMom.wins > 0) {
+    gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
+    startGameButton.classList.remove('hidden');
+    gamePile.classList.add('hidden');
+    momTotalWins.innerText = `${currentGame.playerMom.wins}`
+  }
+}
 // function play() {
 //   console.log('whats up!');
 //   if (event.key === 'f' || event.key === 'F') {
