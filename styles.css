@@ -9,12 +9,11 @@ h1 {
 .header {
   font-size: 5em;
 }
+
 body {
   background: #023403;
   color: white;
 }
-
-
 
 .game-table {
   display: flex;
@@ -31,10 +30,24 @@ img {
   box-shadow: 10px 10px orange;
 }
 
-.isaac-player-deck {
+.isaac-play-shadow {
   box-shadow: 10px 10px deepskyblue;
 }
 
-.mom-player-deck {
+.mom-play-shadow {
   box-shadow: 10px 10px purple;
+}
+
+p {
+  text-align: center;
+  font-size: x-large;
+}
+
+.isaac-wins {
+  color: deepskyblue;
+}
+
+.mom-wins {
+  color: purple;
+  font-weight: bold;
 }
