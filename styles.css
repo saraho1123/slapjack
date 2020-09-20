@@ -22,10 +22,10 @@ body {
 
 img {
   height: 16em;
-  width:10em;
+  width:12em;
 }
 
-.game-deck {
+.game-pile {
   margin: 2em;
   box-shadow: 10px 10px orange;
 }
