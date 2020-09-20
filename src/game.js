@@ -145,7 +145,7 @@ class Game {
     }
   }
 
-  slapATrueCondition(playerWhoSlaps) {
+  updateATrueConditionSlap(playerWhoSlaps) {
     playerWhoSlaps.hand = playerWhoSlaps.hand.concat(this.gamePile);
     this.gamePile = [];
   }
