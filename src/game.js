@@ -1,122 +1,166 @@
+// TODO Sunday: look at updatePlayerTurn ... if one player's hand array is empty,
+// I need it to only  play from the other hand array.
+
 class Game {
-  constructor(playerDetails) {
-    this.playerIsaac = playerDetails; // I am not sure how to assign these just yet. Or if they
-    this.playerMom = playerDetails; //
-    // this.cardDeck = []; // array of cards (possibly an array of objects?) I put this below for now;
-    this.gamePile; // I think this needs to be assigned in the updateGamePile()
-
-  // I think I want my cardDeck to be an array of objects so that it is easy to
-  // translate it to the DOM when the time comes. I put href, but I'm thinking I'll
-  // need to change this to src??
-
-  // consider shortening this array as you are working in order to test it!
-
+  constructor() {
+    this.playerIsaac = new Player("Isaac");
+    this.playerMom = new Player("Mom");;
+    this.currentPlayer = this.playerIsaac;
+    this.gamePile = [];
+    // consider shortening this array as you are working in order to test it!
     this.cardDeck = [
-      {class: "blue-A", href: ".assets/blue-01.png"},
-      {class: "blue-2", href: ".assets/blue-02.png"},
-      {class: "blue-3", href: ".assets/blue-03.png"},
-      {class: "blue-4", href: ".assets/blue-04.png"},
-      {class: "blue-5", href: ".assets/blue-05.png"},
-      {class: "blue-6", href: ".assets/blue-06.png"},
-      {class: "blue-7", href: ".assets/blue-07.png"},
-      {class: "blue-8", href: ".assets/blue-08.png"},
-      {class: "blue-9", href: ".assets/blue-09.png"},
-      {class: "blue-10", href: ".assets/blue-10.png"},
-      {class: "blue-jack", href: ".assets/blue-jack.png"},
-      {class: "blue-queen", href: ".assets/blue-queen.png"},
-      {class: "blue-king", href: ".assets/blue-king.png"},
-      {class: "gold-A", href: ".assets/gold-01.png"},
-      {class: "gold-2", href: ".assets/gold-02.png"},
-      {class: "gold-3", href: ".assets/gold-03.png"},
-      {class: "gold-4", href: ".assets/gold-04.png"},
-      {class: "gold-5", href: ".assets/gold-05.png"},
-      {class: "gold-6", href: ".assets/gold-06.png"},
-      {class: "gold-7", href: ".assets/gold-07.png"},
-      {class: "gold-8", href: ".assets/gold-08.png"},
-      {class: "gold-9", href: ".assets/gold-09.png"},
-      {class: "gold-10", href: ".assets/gold-10.png"},
-      {class: "gold-jack", href: ".assets/gold-jack.png"},
-      {class: "gold-queen", href: ".assets/gold-queen.png"},
-      {class: "gold-king", href: ".assets/gold-king.png"},
-      {class: "green-A", href: ".assets/green-01.png"},
-      {class: "green-2", href: ".assets/green-02.png"},
-      {class: "green-3", href: ".assets/green-03.png"},
-      {class: "green-4", href: ".assets/green-04.png"},
-      {class: "green-5", href: ".assets/green-05.png"},
-      {class: "green-6", href: ".assets/green-06.png"},
-      {class: "green-7", href: ".assets/green-07.png"},
-      {class: "green-8", href: ".assets/green-08.png"},
-      {class: "green-9", href: ".assets/green-09.png"},
-      {class: "green-10", href: ".assets/green-10.png"},
-      {class: "green-jack", href: ".assets/green-jack.png"},
-      {class: "green-queen", href: ".assets/green-queen.png"},
-      {class: "green-king", href: ".assets/green-king.png"},
-      {class: "red-A", href: ".assets/red-01.png"},
-      {class: "red-2", href: ".assets/red-02.png"},
-      {class: "red-3", href: ".assets/red-03.png"},
-      {class: "red-4", href: ".assets/red-04.png"},
-      {class: "red-5", href: ".assets/red-05.png"},
-      {class: "red-6", href: ".assets/red-06.png"},
-      {class: "red-7", href: ".assets/red-07.png"},
-      {class: "red-8", href: ".assets/red-08.png"},
-      {class: "red-9", href: ".assets/red-09.png"},
-      {class: "red-10", href: ".assets/red-10.png"},
-      {class: "red-jack", href: ".assets/red-jack.png"},
-      {class: "red-queen", href: ".assets/red-queen.png"},
-      {class: "red-king", href: ".assets/red-king.png"},
+      {suit: "blue-A", value: "A", src: ".assets/blue-01.png"},
+      {suit: "blue-2",  value: "2", src: ".assets/blue-02.png"},
+      {suit: "blue-3",  value: "3", src: ".assets/blue-03.png"},
+      {suit: "blue-4",  value: "4", src: ".assets/blue-04.png"},
+      {suit: "blue-5",  value: "5", src: ".assets/blue-05.png"},
+      {suit: "blue-6",  value: "6", src: ".assets/blue-06.png"},
+      {suit: "blue-7",  value: "7", src: ".assets/blue-07.png"},
+      {suit: "blue-8",  value: "8", src: ".assets/blue-08.png"},
+      {suit: "blue-9",  value: "9", src: ".assets/blue-09.png"},
+      {suit: "blue-10",  value: "10", src: ".assets/blue-10.png"},
+      {suit: "blue-jack",  value: "jack", src: ".assets/blue-jack.png"},
+      {suit: "blue-queen",  value: "queen", src: ".assets/blue-queen.png"},
+      {suit: "blue-king",  value: "king", src: ".assets/blue-king.png"},
+      {suit: "gold-A",  value: "A", src: ".assets/gold-01.png"},
+      {suit: "gold-2",  value: "2", src: ".assets/gold-02.png"},
+      {suit: "gold-3",  value: "3", src: ".assets/gold-03.png"},
+      {suit: "gold-4",  value: "4", src: ".assets/gold-04.png"},
+      {suit: "gold-5",  value: "5", src: ".assets/gold-05.png"},
+      {suit: "gold-6",  value: "6", src: ".assets/gold-06.png"},
+      {suit: "gold-7",  value: "7", src: ".assets/gold-07.png"},
+      {suit: "gold-8",  value: "8", src: ".assets/gold-08.png"},
+      {suit: "gold-9",  value: "9", src: ".assets/gold-09.png"},
+      {suit: "gold-10",  value: "10", src: ".assets/gold-10.png"},
+      {suit: "gold-jack",  value: "jack", src: ".assets/gold-jack.png"},
+      {suit: "gold-queen",  value: "queen", src: ".assets/gold-queen.png"},
+      {suit: "gold-king",  value: "king", src: ".assets/gold-king.png"},
+      {suit: "green-A",  value: "A", src: ".assets/green-01.png"},
+      {suit: "green-2",  value: "2", src: ".assets/green-02.png"},
+      {suit: "green-3",  value: "3", src: ".assets/green-03.png"},
+      {suit: "green-4",  value: "4", src: ".assets/green-04.png"},
+      {suit: "green-5",  value: "5", src: ".assets/green-05.png"},
+      {suit: "green-6",  value: "6", src: ".assets/green-06.png"},
+      {suit: "green-7",  value: "7", src: ".assets/green-07.png"},
+      {suit: "green-8",  value: "8", src: ".assets/green-08.png"},
+      {suit: "green-9",  value: "9", src: ".assets/green-09.png"},
+      {suit: "green-10",  value: "10", src: ".assets/green-10.png"},
+      {suit: "green-jack",  value: "jack", src: ".assets/green-jack.png"},
+      {suit: "green-queen",  value: "queen", rc: ".assets/green-queen.png"},
+      {suit: "green-king",  value: "king", src: ".assets/green-king.png"},
+      {suit: "red-A",  value: "A", src: ".assets/red-01.png"},
+      {suit: "red-2",  value: "2", src: ".assets/red-02.png"},
+      {suit: "red-3",  value: "3", src: ".assets/red-03.png"},
+      {suit: "red-4",  value: "4", src: ".assets/red-04.png"},
+      {suit: "red-5",  value: "5", src: ".assets/red-05.png"},
+      {suit: "red-6",  value: "6", src: ".assets/red-06.png"},
+      {suit: "red-7",  value: "7", src: ".assets/red-07.png"},
+      {suit: "red-8",  value: "8", src: ".assets/red-08.png"},
+      {suit: "red-9",  value: "9", src: ".assets/red-09.png"},
+      {suit: "red-10",  value: "10", src: ".assets/red-10.png"},
+      {suit: "red-jack",  value: "jack", src: ".assets/red-jack.png"},
+      {suit: "red-queen",  value: "queen", src: ".assets/red-queen.png"},
+      {suit: "red-king",  value: "king", src: ".assets/red-king.png"},
     ];
+    // consider putting this in a seperate src file?
   }
-
-  instantiatePlayer(player) {
-    var player = new Player(wins, hand);
-    // I realize this will need more, but I already know I will need it to play the game!
-  }
-
-  // function getRandomIndex(array) {
-  //   return Math.floor(Math.random() * array.length);
-  // }
 
   shuffleDeck(deckToShuffle) {
-    // look up Fisher-yates shuffle??
-    // or just shuffling in general?
-    // or can I just use the random function from romcom?
-    for (var i = cardDeck.length - 1; i > 0; i--) {
+    for (var i = deckToShuffle.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * i);
-        var tempArray = cardDeck[i];
-        cardDeck[i] = cardDeck[j];
-        cardDeck[j] = tempArray;
+        var tempArray = deckToShuffle[i];
+        deckToShuffle[i] = deckToShuffle[j];
+        deckToShuffle[j] = tempArray;
     }
-    this.cardDeck = cardDeck[j]; //when I was testing this, I used a return, but I think this is what I want to do.
-};
+  }
 
-
-// this is what I found for Fisher-yates shuffle. I understand it for the most part.
-// I don't understand array[j] fully though. Ask Taras!
-
-  dealHand() {
-    // Need to research
-    // FOR LOOP through shuffled cardDeck array.
-    // push into playerDetails.hand
+  dealHand(shuffledDeck) {
+    for (var i = 0; i < shuffledDeck.length; i++) {
+      i % 2 ? this.playerIsaac.hand.push(shuffledDeck[i]) : this.playerMom.hand.push(shuffledDeck[i]);
+    }
+    // this.cardDeck = []; I don't think I need to do this, but I am leaving it here in case I hit a problem later.
   }
 
   updateGamePile() {
-    // this will return the last card played (by either player)
-    // ie: a randomly drawn card from the playerDetails.hand array
+    var cardPlayed;
+    if (this.currentPlayer === undefined) { // need to change what this does!
+      this.shuffleDeck(this.gamePile);
+      this.dealHand(this.gamePile);
+      this.gamepile = [];
+      this.currentPlayer = this.playerIsaac;
+    } else if (this.currentPlayer.id === "Isaac") {
+      cardPlayed = this.playerIsaac.playCard();
+      this.gamePile.unshift(cardPlayed);
+      this.updatePlayerTurn();
+    } else {
+      cardPlayed = this.playerMom.playCard();
+      this.gamePile.unshift(cardPlayed);
+      this.updatePlayerTurn();
+    }
+    console.log(cardPlayed);
+    console.log(newGame);
     // DOM: this will need to be called in main.js to update html 'game-pile' element
   }
 
   updatePlayerTurn() {
-    // this will limit which keys will have event listeners (q, f OR p, j)
-    // will also update which playerDetails.hand array will be pulled from for play()
+    if (this.currentPlayer.id === "Isaac" && this.playerMom.hand[0] !== undefined) {
+      this.currentPlayer = this.playerMom;
+    } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
+      this.currentPlayer = this.playerIsaac;
+    } else {
+      debugger
+      this.currentPlayer = undefined;
+    }
+    // This needs to be refactored using args/params (see updateGamePile())
+
     // DOM: will this need update a visual of who's turn it is?
+    // DOM: this will limit which keys will have event listeners (q, f OR p, j)
   }
 
-  play() {
-    // this will simply (I hope) randomly pull a card from one playerDetails.hand array.
-    // also I think it makes more sense to run this function BEFORE updateGamePile()
+  playSlapJack(player) {
+    // this has a bug! error if a slap attempt is made before 3 cards are played.
+    if (this.gamePile[0].suit.includes("jack")) {
+      console.log("SLAPJACK!");
+      this.slapATrueCondition(player);
+      this.updateWins(player);
+      this.shuffleDeck(player.hand);
+    } else if (this.gamePile[0].value === this.gamePile[1].value) {
+      console.log("DOUBLE!")
+      this.slapATrueCondition(player);
+      this.updateWins(player)
+      this.shuffleDeck(player.hand);
+    } else if (this.gamePile[0].value === this.gamePile[2].value) {
+      console.log("SANDWICH!");
+      this.slapATrueCondition(player);
+      this.updateWins(playerWhoSlaps)
+      this.shuffleDeck(player.hand);
+    } else {
+      console.log("OOPS!");
+      var wrongSlappedCard = this.gamePile.shift();
+      player.hand.push(wrongSlappedCard);
+    }
   }
-  updateWins() {
-    // this will hold the conditions for a win:
+
+  slapATrueCondition(playerWhoSlaps) {
+    playerWhoSlaps.hand = playerWhoSlaps.hand.concat(this.gamePile);
+    this.gamePile = [];
+  }
+
+  updateWins(playerWhoSlaps) {
+    if (this.playerIsaac.hand[0] === undefined &&  playerWhoSlaps.id === "Mom") {
+      console.log("Mom wins!");
+      this.playerMom.wins++;
+      this.gamePile = [];
+    } else if (this.playerMom.hand[0] === undefined && playerWhoSlaps.id === "Isaac") {
+      console.log("Isaac wins!");
+      this.playerIsaac.wins++;
+      this.gamePile = [];
+    }
+    // this.currentPlayer.wins++;
+
+    // It seems like all this needs to go in the main.js to update the DOM:
+    // there is probably a way to determing the winner without a listener on the key down for f and j,
+    // but I think it is beyond my logic ability right now.
     // f or j keyup when a jack, double or sandwich is in the gamePile
     // when win condition is met, update the win for that playerDetails.wins
     // I am thinking:
