@@ -4,7 +4,7 @@ class Game {
   constructor() {
     this.playerIsaac = new Player("Isaac", 0);
     this.playerMom = new Player("Mom", 0);;
-    this.currentPlayer = "Isaac";
+    this.currentPlayer = this.playerIsaac;
     this.gamePile = [];
     // consider shortening this array as you are working in order to test it!
     this.cardDeck = [
@@ -87,14 +87,14 @@ class Game {
 
   updateGamePile() {
     var cardPlayed;
-    if (this.currentPlayer === "Isaac") {
+    if (this.currentPlayer.id === "Isaac") {
       cardPlayed = this.playerIsaac.playCard();
       this.gamePile.unshift(cardPlayed);
-      this.currentPlayer = this.playerMom.id;
+      this.updatePlayerTurn();
     } else {
       cardPlayed = this.playerMom.playCard();
       this.gamePile.unshift(cardPlayed);
-      this.currentPlayer = this.playerIsaac.id;
+      this.updatePlayerTurn();
     }
     console.log(cardPlayed);
     // this will hold the last card played (by either player)
@@ -104,26 +104,44 @@ class Game {
   }
 
   updatePlayerTurn() {
-    // I think this should do the push into gamePile using arguments/params,
-    // but I'm going to leave that for a refactor at the moment.
-    // this.gamePile.push(cardPlayed);
-    // will also update which playerDetails.hand array will be pulled from for play()
+    if (this.currentPlayer.id === "Isaac") {
+      this.currentPlayer = this.playerMom;
+    } else {
+      this.currentPlayer = this.playerIsaac;
+    }
+    // This needs to be refactored using args/params (see updateGamePile())
+
     // DOM: will this need update a visual of who's turn it is?
     // DOM: this will limit which keys will have event listeners (q, f OR p, j)
   }
 
-  playSlapJack() {
+  playSlapJack(player) {
+    // this has a bug! error if an attempt is made before 3 cards are played.
     // I think this actually needs to have the conditionals for wins
-    if (this.gamePile[0].suit.includes("jack")){
+    if (this.gamePile[0].suit.includes("jack")) {
       console.log("SLAPJACK!");
+      player.hand = player.hand.concat(this.gamePile);
+      this.gamePile = [];
+      this.shuffleDeck(player.hand);
     } else if (this.gamePile[0].value === this.gamePile[1].value) {
       console.log("DOUBLE!")
+      player.hand = player.hand.concat(this.gamePile);
+      this.gamePile = [];
+      this.shuffleDeck(player.hand);
+    } else if (this.gamePile[0].value === this.gamePile[2].value) {
+      console.log("SANDWICH!");
+      player.hand = player.hand.concat(this.gamePile);
+      this.gamePile = [];
+      this.shuffleDeck(player.hand);
+    } else {
+      console.log("OOPS!");
+      var wrongSlappedCard = this.gamePile.shift();
+      player.hand.push(wrongSlappedCard);
     }
-    }
+  }
 
     // this will simply (I hope) randomly pull a card from one playerDetails.hand array.
     // also I think it makes more sense to run this function BEFORE updateGamePile()
-  }
 
   updateWins() {
     // this will hold the conditions for a win:
