@@ -9,12 +9,11 @@ h1 {
 .header {
   font-size: 5em;
 }
+
 body {
   background: #023403;
   color: white;
 }
-
-
 
 .game-table {
   display: flex;
@@ -23,18 +22,47 @@ body {
 
 img {
   height: 16em;
-  width:10em;
+  width:12em;
 }
 
-.game-deck {
+.game-pile {
   margin: 2em;
   box-shadow: 10px 10px orange;
 }
 
-.isaac-player-deck {
+.start-slapjack {
+  background: orange;
+  border: none;
+  border-radius: 5px;
+  height: 3em;
+  color: #0794f7;
+  font-weight: bolder;
+  font-size: large;
+  margin-top: 5em;
+}
+
+.isaac-play-shadow {
   box-shadow: 10px 10px deepskyblue;
 }
 
-.mom-player-deck {
+.mom-play-shadow {
   box-shadow: 10px 10px purple;
+}
+
+p {
+  text-align: center;
+  font-size: x-large;
+}
+
+.isaac-wins {
+  color: deepskyblue;
+}
+
+.mom-wins {
+  color: purple;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
 }

@@ -1,27 +1,127 @@
 
-var newGame = new Game();
+var currentGame = new Game();
 
-document.addEventListener("keyup", slap)
+// query selectors:
+var gameUpdateMessage = document.querySelector('.update-message');
+var isaacCardDeck = document.querySelector('.isaac-player-deck');
+var momCardDeck = document.querySelector('.mom-player-deck');
+var gamePile = document.querySelector('.game-pile');
+var isaacWins = document.querySelector('.isaac-wins');
+var momWins = document.querySelector('.mom-wins');
+var startGameButton = document.querySelector('.start-slapjack');
+
+// event listeners:
+startGameButton.addEventListener('click', startGame);
+document.addEventListener('keydown', playHandler);
 
 // methods from Game class that are working so far!
-newGame.shuffleDeck(newGame.cardDeck);
-newGame.dealHand(newGame.cardDeck);
-// newGame.updateGamePile( this will need to be connected to 'p' and 'q');
-// slapATrueCondition(connect this to 'f' and 'j' keydowns);
-// updateWins( need to connect this to slapATrueCondition with correct params);
+// currentGame.shuffleDeck(currentGame.cardDeck);
+// currentGame.dealHand(currentGame.cardDeck);
+// currentGame.updategamePile(); // connect to 'p' and 'q'
+// updateATrueConditionSlap(); // connect this to 'f' and 'j' keydowns
+// updateWins(); // connect this to slapATrueCondition with correct params
 
-// newGame.playSlapJack(newGame.currentPlayer);
-// will need to update this to be whether f or j is keydown
-// but for now, I don't know how to determine who slaps in the data model
+function startGame() {
+  startGameButton.classList.add('hidden');
+  gamePile.classList.remove('hidden');
+  gamePile.src = './assets/isaac-cardback.jpeg';
+  currentGame.shuffleDeck(currentGame.cardDeck);
+  currentGame.dealHand(currentGame.cardDeck);
+}
 
-function slap(event) {
-  if (event.key === "f" || event.key === "F") {
-    console.log("Fslap");
-  } else if (event.key === "j" || event.key === "J") {
-    console.log("Jslap");
-  } else if (event.key === "q" || event.key === "Q") {
-    console.log("Qplaycard");
-  } else if (event.key === "p" || event.key === "P") {
-    console.log("Pplaycard");
+function playHandler(event) {
+  layCard(event);
+  slap(event);
+}
+
+function layCard(event) {
+  // debugger
+  if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
+    console.log('Isaac card played.');
+    changePlayerShadow();
+    currentGame.currentPlayer = currentGame.playerIsaac;
+    currentGame.updateGamePile();
+    console.log("who's turn?")
+    console.log(currentGame.currentPlayer.id);
+    displayPlayedCard();
+  } else if (event.key == 'p' && currentGame.currentPlayer.id === "Mom") {
+    console.log('Mom card played.');
+    changePlayerShadow();
+    currentGame.currentPlayer = currentGame.playerMom;
+    currentGame.updateGamePile();
+    console.log("who's turn?")
+    console.log(currentGame.currentPlayer.id);
+    displayPlayedCard();
   }
 }
+
+function displayPlayedCard() {
+  if (currentGame.gamePile.length === 0) {
+    startGameButton.classList.remove('hidden');
+    gamePile.classList.add('hidden');
+  } else {
+    gamePile.src = currentGame.gamePile[0].src;
+    // changePlayerShadow();
+  }
+}
+
+function changePlayerShadow() {
+  if (currentGame.currentPlayer.id === 'Isaac') {
+    currentGame.currentPlayer = currentGame.playerMom;
+    isaacCardDeck.classList.remove('isaac-play-shadow');
+    momCardDeck.classList.add('mom-play-shadow');
+  } else if (currentGame.currentPlayer.id === 'Mom') {
+      currentGame.currentPlayer = currentGame.playerIsaac;
+      momCardDeck.classList.remove('mom-play-shadow');
+      isaacCardDeck.classList.add('isaac-play-shadow');
+    }
+}
+
+function slap(event) {
+  var gameDeck = document.querySelector('.game-deck');
+  if (event.key == 'f') {
+    // && !gameUpdateMessage.innerText.includes('Mom') {
+    console.log('Isaac Slap!');
+    currentGame.playSlapJack(currentGame.playerIsaac);
+    gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
+    gamePile.src = './assets/isaac-win-card-back.jpeg';
+    winningSlap();
+  // }
+  } else if (event.key == 'j') {
+      // && !gameUpdateMessage.innerText.includes('Isaac') {
+      console.log('Mom Slap!');
+      currentGame.playSlapJack(currentGame.playerMom);
+      gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
+      gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
+      winningSlap();
+    // }
+  }
+}
+
+function winningSlap() {
+  var isaacTotalWins = document.querySelector('.isaac-total-wins');
+  var momTotalWins = document.querySelector('.mom-total-wins');
+  if (currentGame.playerIsaac.wins > 0) {
+    gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
+    startGameButton.classList.remove('hidden');
+    gamePile.classList.add('hidden');
+    isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
+  } else if (currentGame.playerMom.wins > 0) {
+    gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
+    startGameButton.classList.remove('hidden');
+    gamePile.classList.add('hidden');
+    momTotalWins.innerText = `${currentGame.playerMom.wins}`
+  }
+}
+// function play() {
+//   console.log('whats up!');
+//   if (event.key === 'f' || event.key === 'F') {
+//     console.log('Fslap');
+//   } else if (event.key === 'j' || event.key === 'J') {
+//     console.log('Jslap');
+//   } else if (event.key === 'q' || event.key === 'Q') {
+//     console.log('Qplaycard');
+//   } else if (event.key === 'p' || event.key === 'P') {
+//     console.log('Pplaycard');
+//   }
+// }
