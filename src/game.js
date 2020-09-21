@@ -101,7 +101,7 @@ class Game {
     for (var i = 0; i < shuffledDeck.length; i++) {
       i % 2 ? this.playerIsaac.hand.push(shuffledDeck[i]) : this.playerMom.hand.push(shuffledDeck[i]);
     }
-    this.cardDeck = []; // I don't think I need to do this, but I am leaving it here in case I hit a problem later.
+    // this.cardDeck = []; // I don't think I need to do this, but I am leaving it here in case I hit a problem later.
   }
 
   updateGamePile() {
