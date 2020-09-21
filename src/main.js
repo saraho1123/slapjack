@@ -14,37 +14,51 @@ var startGameButton = document.querySelector('.start-slapjack');
 startGameButton.addEventListener('click', startGame);
 document.addEventListener('keydown', playGame);
 
+// I think I want a button to show up that asks if they want to play again.
+// if it is clicked, then it shows the startGameButton.
 function startGame() {
   startGameButton.classList.add('hidden');
   gamePile.classList.remove('hidden');
   gamePile.src = './assets/isaac-cardback.jpeg';
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
+  momCardDeck.classList.remove('mom-play-shadow');
+  isaacCardDeck.classList.add('isaac-play-shadow');
 }
 
 function playGame(event) {
   if (event.key === 'f' || event.key === 'j') {
-    slap(event);
+    whoSlapped(event);
+
   } else if (event.key === 'q' || event.key === 'p') {
+    whoPlayed()
     layCard(event);
   }
 }
 
-function layCard(event) {
-  // debugger
-  if (event.key === 'q' && currentGame.currentPlayer.id === "Isaac") {
-    console.log('Isaac card played.');
-    changePlayerShadow();
-    currentGame.currentPlayer = currentGame.playerIsaac;
-    currentGame.updateGamePile();
-    displayPlayedCard();
-  } else if (event.key === 'p' && currentGame.currentPlayer.id === "Mom") {
-    console.log('Mom card played.');
-    changePlayerShadow();
-    currentGame.currentPlayer = currentGame.playerMom;
-    currentGame.updateGamePile();
-    displayPlayedCard();
+function whoSlapped(event) {
+  if (event.key === 'f') {
+    currentGame.playerIsaac.slapped = true;
+    slap(currentGame.playerIsaac);
+  } else if (event.key === 'j') {
+    currentGame.playerIsaac.slapped = true;
   }
+}
+
+function whoPlayed() {
+  if (event.key == 'q') {
+    currentGame.currentPlayer = currentGame.playerIsaac;
+    currentGame.otherPlayer = currentGame.playerMom;
+  } else if (event.key == 'p') {
+      currentGame.currentPlayer = currentGame.playerMom;
+      currentGame.otherPlayer = currentGame.playerIsaac;
+  }
+}
+
+function layCard(event) {
+  changePlayerShadow();
+  currentGame.updateGamePile();
+  displayPlayedCard();
 }
 
 function displayPlayedCard() {
@@ -59,48 +73,46 @@ function displayPlayedCard() {
 function changePlayerShadow() {
   whoPlayed();
   if (currentGame.currentPlayer.id === 'Isaac') {
-    // currentGame.currentPlayer = currentGame.playerMom;
     isaacCardDeck.classList.remove('isaac-play-shadow');
     momCardDeck.classList.add('mom-play-shadow');
   } else if (currentGame.currentPlayer.id === 'Mom') {
-      // currentGame.currentPlayer = currentGame.playerIsaac;
       momCardDeck.classList.remove('mom-play-shadow');
       isaacCardDeck.classList.add('isaac-play-shadow');
     }
 }
 
-// this needs to be refactored first, because it's going to make it all more simple
-// need paramaters for event key. can I set that up in playHandler()?
-// need params for player
-function slap(event) {
-  // debugger
+function slap(playerWhoSlapped) {
   var gameDeck = document.querySelector('.game-deck');
-  whoPlayed();
+  // whoPlayed();
+  // whoSlapped();
   currentGame.playSlapJack(currentGame.currentPlayer, currentGame.otherPlayer);
-  if (event.key === 'f' && currentGame.slapIsCorrect === true) {
-    console.log('Isaac Slap!');
-    gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
-    gamePile.src = './assets/isaac-win-card-back.jpeg';
+  if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
+    updateSlapMessage(playerWhoSlapped)
+    // gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
+    // gamePile.src = './assets/isaac-win-card-back.jpeg';
     winningSlap();
-} else if (event.key === 'j' && currentGame.slapIsCorrect === true) {
-      console.log('Mom Slap!');
-      gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
-      gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
-      winningSlap();
+  // } else if (currentGame.playerMom.slapped === true && currentGame.slapIsCorrect === true) {
+  //     // gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
+  //     // gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
+  //     winningSlap();
   } else {
     wrongSlap();
   }
 }
 
-function whoPlayed() {
-  if (event.key == 'q') {
-    currentGame.currentPlayer = currentGame.playerIsaac;
-    currentGame.otherPlayer = currentGame.playerMom;
-  } else if (event.key == 'p') {
-      currentGame.currentPlayer = currentGame.playerMom;
-      currentGame.otherPlayer = currentGame.playerIsaac;
+function updateSlapMessage(player) {
+  // var gameDeck = document.querySelector('.game-deck');
+  if (player.id = "Isaac") {
+    gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
+    gamePile.src = './assets/isaac-win-card-back.jpeg';
+  } else if (player.id = "Mom") {
+    gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
+    gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
   }
 }
+
+
+// I want to call who slapped in the play game and then call slap(slapper)
 
 function wrongSlap () {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
