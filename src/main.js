@@ -37,16 +37,12 @@ function layCard(event) {
     changePlayerShadow();
     currentGame.currentPlayer = currentGame.playerIsaac;
     currentGame.updateGamePile();
-    console.log("who's turn?")
-    console.log(currentGame.currentPlayer.id);
     displayPlayedCard();
   } else if (event.key === 'p' && currentGame.currentPlayer.id === "Mom") {
     console.log('Mom card played.');
     changePlayerShadow();
     currentGame.currentPlayer = currentGame.playerMom;
     currentGame.updateGamePile();
-    console.log("who's turn?")
-    console.log(currentGame.currentPlayer.id);
     displayPlayedCard();
   }
 }
@@ -61,12 +57,13 @@ function displayPlayedCard() {
 }
 
 function changePlayerShadow() {
+  whoPlayed();
   if (currentGame.currentPlayer.id === 'Isaac') {
-    currentGame.currentPlayer = currentGame.playerMom;
+    // currentGame.currentPlayer = currentGame.playerMom;
     isaacCardDeck.classList.remove('isaac-play-shadow');
     momCardDeck.classList.add('mom-play-shadow');
   } else if (currentGame.currentPlayer.id === 'Mom') {
-      currentGame.currentPlayer = currentGame.playerIsaac;
+      // currentGame.currentPlayer = currentGame.playerIsaac;
       momCardDeck.classList.remove('mom-play-shadow');
       isaacCardDeck.classList.add('isaac-play-shadow');
     }
@@ -76,9 +73,9 @@ function changePlayerShadow() {
 // need paramaters for event key. can I set that up in playHandler()?
 // need params for player
 function slap(event) {
-  debugger
+  // debugger
   var gameDeck = document.querySelector('.game-deck');
-  whoSlapped();
+  whoPlayed();
   currentGame.playSlapJack(currentGame.currentPlayer, currentGame.otherPlayer);
   if (event.key === 'f' && currentGame.slapIsCorrect === true) {
     console.log('Isaac Slap!');
@@ -95,11 +92,11 @@ function slap(event) {
   }
 }
 
-function whoSlapped() {
-  if (event.key == 'f') {
+function whoPlayed() {
+  if (event.key == 'q') {
     currentGame.currentPlayer = currentGame.playerIsaac;
     currentGame.otherPlayer = currentGame.playerMom;
-  } else if (event.key == 'j') {
+  } else if (event.key == 'p') {
       currentGame.currentPlayer = currentGame.playerMom;
       currentGame.otherPlayer = currentGame.playerIsaac;
   }
