@@ -37,14 +37,12 @@ function layCard(event) {
     changePlayerShadow();
     currentGame.currentPlayer = currentGame.playerIsaac;
     currentGame.updateGamePile();
-    console.log(currentGame.currentPlayer.id);
     displayPlayedCard();
   } else if (event.key === 'p' && currentGame.currentPlayer.id === "Mom") {
     console.log('Mom card played.');
     changePlayerShadow();
     currentGame.currentPlayer = currentGame.playerMom;
     currentGame.updateGamePile();
-    console.log(currentGame.currentPlayer.id);
     displayPlayedCard();
   }
 }
@@ -75,7 +73,7 @@ function changePlayerShadow() {
 // need paramaters for event key. can I set that up in playHandler()?
 // need params for player
 function slap(event) {
-  debugger
+  // debugger
   var gameDeck = document.querySelector('.game-deck');
   whoPlayed();
   currentGame.playSlapJack(currentGame.currentPlayer, currentGame.otherPlayer);
@@ -95,10 +93,10 @@ function slap(event) {
 }
 
 function whoPlayed() {
-  if (event.key == 'f' || event.key == 'q') {
+  if (event.key == 'q') {
     currentGame.currentPlayer = currentGame.playerIsaac;
     currentGame.otherPlayer = currentGame.playerMom;
-  } else if (event.key == 'j' || event.key == 'p') {
+  } else if (event.key == 'p') {
       currentGame.currentPlayer = currentGame.playerMom;
       currentGame.otherPlayer = currentGame.playerIsaac;
   }

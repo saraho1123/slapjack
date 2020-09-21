@@ -32,20 +32,20 @@ class Game {
     this.gamePile = [];
     // consider shortening this array as you are working in order to test it!
     this.cardDeck = [
-      {suit: "blue-A", value: "A", src: "./assets/blue-01.png"},
-      {suit: "blue-2",  value: "2", src: "./assets/blue-02.png"},
-      {suit: "blue-3",  value: "3", src: "./assets/blue-03.png"},
-      {suit: "blue-4",  value: "4", src: "./assets/blue-04.png"},
-      {suit: "blue-5",  value: "5", src: "./assets/blue-05.png"},
-      {suit: "blue-6",  value: "6", src: "./assets/blue-06.png"},
-      {suit: "blue-7",  value: "7", src: "./assets/blue-07.png"},
-      {suit: "blue-8",  value: "8", src: "./assets/blue-08.png"},
-      {suit: "blue-9",  value: "9", src: "./assets/blue-09.png"},
-      {suit: "blue-10",  value: "10", src: "./assets/blue-10.png"},
+      // {suit: "blue-A", value: "A", src: "./assets/blue-01.png"},
+      // {suit: "blue-2",  value: "2", src: "./assets/blue-02.png"},
+      // {suit: "blue-3",  value: "3", src: "./assets/blue-03.png"},
+      // {suit: "blue-4",  value: "4", src: "./assets/blue-04.png"},
+      // {suit: "blue-5",  value: "5", src: "./assets/blue-05.png"},
+      // {suit: "blue-6",  value: "6", src: "./assets/blue-06.png"},
+      // {suit: "blue-7",  value: "7", src: "./assets/blue-07.png"},
+      // {suit: "blue-8",  value: "8", src: "./assets/blue-08.png"},
+      // {suit: "blue-9",  value: "9", src: "./assets/blue-09.png"},
+      // {suit: "blue-10",  value: "10", src: "./assets/blue-10.png"},
       {suit: "blue-jack",  value: "jack", src: "./assets/blue-jack.png"},
-      {suit: "blue-queen",  value: "queen", src: "./assets/blue-queen.png"},
-      {suit: "blue-king",  value: "king", src: "./assets/blue-king.png"},
-      {suit: "gold-A",  value: "A", src: "./assets/gold-01.png"},
+      // {suit: "blue-queen",  value: "queen", src: "./assets/blue-queen.png"},
+      // {suit: "blue-king",  value: "king", src: "./assets/blue-king.png"},
+      // {suit: "gold-A",  value: "A", src: "./assets/gold-01.png"},
     //   {suit: "gold-2",  value: "2", src: "./assets/gold-02.png"},
     //   {suit: "gold-3",  value: "3", src: "./assets/gold-03.png"},
     //   {suit: "gold-4",  value: "4", src: "./assets/gold-04.png"},
@@ -58,7 +58,7 @@ class Game {
       {suit: "gold-jack",  value: "jack", src: "./assets/gold-jack.png"},
     //   {suit: "gold-queen",  value: "queen", src: "./assets/gold-queen.png"},
     //   {suit: "gold-king",  value: "king", src: "./assets/gold-king.png"},
-      {suit: "green-A",  value: "A", src: "./assets/green-01.png"},
+      // {suit: "green-A",  value: "A", src: "./assets/green-01.png"},
     //   {suit: "green-2",  value: "2", src: "./assets/green-02.png"},
     //   {suit: "green-3",  value: "3", src: "./assets/green-03.png"},
     //   {suit: "green-4",  value: "4", src: "./assets/green-04.png"},
@@ -71,7 +71,7 @@ class Game {
       {suit: "green-jack",  value: "jack", src: "./assets/green-jack.png"},
     //   {suit: "green-queen",  value: "queen", src: "./assets/green-queen.png"},
     //   {suit: "green-king",  value: "king", src: "./assets/green-king.png"},
-      {suit: "red-A",  value: "A", src: "./assets/red-01.png"},
+      // {suit: "red-A",  value: "A", src: "./assets/red-01.png"},
     //   {suit: "red-2",  value: "2", src: "./assets/red-02.png"},
     //   {suit: "red-3",  value: "3", src: "./assets/red-03.png"},
     //   {suit: "red-4",  value: "4", src: "./assets/red-04.png"},
@@ -170,18 +170,15 @@ class Game {
   }
 
   updateWins(playerWhoSlaps) {
+    debugger
     if (this.playerIsaac.hand[0] === undefined &&  playerWhoSlaps.id === "Mom") {
       console.log("Mom wins!");
       this.playerMom.wins++;
       this.resetGameDeck();
-      this.playerIsaac.hand = [];
-      this.playerMom.hand = [];
     } else if (this.playerMom.hand[0] === undefined && playerWhoSlaps.id === "Isaac") {
       console.log("Isaac wins!");
       this.playerIsaac.wins++;
       this.resetGameDeck();
-      this.playerMom = [];
-      this.playerIsaac.hand = [];
     }
     // this.currentPlayer.wins++;
 
@@ -199,7 +196,9 @@ class Game {
 
   resetGameDeck() {
     this.gamePile = [];
-    this.playerIsaac = [];
-    // this.playerMom = [];
+    this.playerIsaac.hand = [];
+    this.playerMom.hand = [];
+    this.currentPlayer = this.playerIsaac;
+    this.otherPlayer = this.playerMom;
   }
 }
