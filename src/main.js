@@ -35,15 +35,22 @@ function playHandler(event) {
 }
 
 function layCard(event) {
-  if (event.key == 'q') {
+  // debugger
+  if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
     console.log('Isaac card played.');
+    changePlayerShadow();
     currentGame.currentPlayer = currentGame.playerIsaac;
     currentGame.updateGamePile();
+    console.log("who's turn?")
+    console.log(currentGame.currentPlayer.id);
     displayPlayedCard();
-  } else if (event.key == 'p') {
+  } else if (event.key == 'p' && currentGame.currentPlayer.id === "Mom") {
     console.log('Mom card played.');
+    changePlayerShadow();
     currentGame.currentPlayer = currentGame.playerMom;
     currentGame.updateGamePile();
+    console.log("who's turn?")
+    console.log(currentGame.currentPlayer.id);
     displayPlayedCard();
   }
 }
@@ -54,7 +61,7 @@ function displayPlayedCard() {
     gamePile.classList.add('hidden');
   } else {
     gamePile.src = currentGame.gamePile[0].src;
-    changePlayerShadow();
+    // changePlayerShadow();
   }
 }
 
@@ -73,12 +80,16 @@ function changePlayerShadow() {
 function slap(event) {
   var gameDeck = document.querySelector('.game-deck');
   if (event.key == 'f') {
+    if (!gameUpdateMessage.innerText.includes('Mom')) {
+      console.log('HeyO!!');
     console.log('Isaac Slap!');
     gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
     currentGame.playSlapJack(currentGame.playerIsaac);
     gamePile.src = './assets/isaac-cardback.jpeg';
     winningSlap();
+  }
   } else if (event.key == 'j') {
+    if (!gameUpdateMessage.innerText.includes('Isaac'))
     console.log('Mom Slap!');
     gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
     currentGame.playSlapJack(currentGame.playerMom);
