@@ -8,7 +8,13 @@
 // TODO Monday: fix player shadow when one player runs out of cards.
 
 // TODO consider a for loop for types of slaps ['jack', 'double', 'sandwich']
-// then set up a function to check which slap and return the correct message.
+// then set up a function in main.js to check which slap and return the correct message.
+// maybe add a funny image?
+// use gameUpdateMessage querySelector!
+
+// Consider a winning image, and a button to return to start game
+
+// Consider a function to update add and remove for classLists.
 
 // Also! REFACTOR TO BE DRY AND SRP
 
