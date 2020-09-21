@@ -82,16 +82,16 @@ function slap(event) {
   if (event.key == 'f') {
     // && !gameUpdateMessage.innerText.includes('Mom') {
     console.log('Isaac Slap!');
-    gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
     currentGame.playSlapJack(currentGame.playerIsaac);
+    gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
     gamePile.src = './assets/isaac-win-card-back.jpeg';
     winningSlap();
   // }
   } else if (event.key == 'j') {
       // && !gameUpdateMessage.innerText.includes('Isaac') {
       console.log('Mom Slap!');
-      gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
       currentGame.playSlapJack(currentGame.playerMom);
+      gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
       gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
       winningSlap();
     // }
