@@ -80,21 +80,21 @@ function changePlayerShadow() {
 function slap(event) {
   var gameDeck = document.querySelector('.game-deck');
   if (event.key == 'f') {
-    if (!gameUpdateMessage.innerText.includes('Mom')) {
-      console.log('HeyO!!');
+    // && !gameUpdateMessage.innerText.includes('Mom') {
     console.log('Isaac Slap!');
     gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
     currentGame.playSlapJack(currentGame.playerIsaac);
-    gamePile.src = './assets/isaac-cardback.jpeg';
+    gamePile.src = './assets/isaac-win-card-back.jpeg';
     winningSlap();
-  }
+  // }
   } else if (event.key == 'j') {
-    if (!gameUpdateMessage.innerText.includes('Isaac'))
-    console.log('Mom Slap!');
-    gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
-    currentGame.playSlapJack(currentGame.playerMom);
-    gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
-    winningSlap();
+      // && !gameUpdateMessage.innerText.includes('Isaac') {
+      console.log('Mom Slap!');
+      gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
+      currentGame.playSlapJack(currentGame.playerMom);
+      gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
+      winningSlap();
+    // }
   }
 }
 

@@ -1,5 +1,20 @@
-// TODO Sunday: look at updatePlayerTurn ... if one player's hand array is empty,
-// I need it to only  play from the other hand array.
+// TODO: PR FOR current branch
+//
+
+// TODO Monday: If 1 player is out of cards and the other player lays all their cards
+// they need to be able to shuffle their cards and keep playing.
+
+// TODO Monday: If both people slap, the person who slapped LAST has the 'slap won' message appear,
+// even though the other person won the slap. I tried to fix it with && in the if statements for slap(),
+// but then whoever slapped first is the only person who can slap for the rest of the game. (see error message for line 133!)
+
+// TODO Monday: If you try to start a new game with the button, there are an quite a lot of bugs.
+
+// TODO MONDAY: Before anything else, REFACTOR TO BE DRY AND SRP
+
+// thoughts - consider putting wrong slap first!
+// thoughts - do I need erase slap won message when new layCard();
+// thoughts - I need to make sure the correct card is displayed on a wrongSlap!
 
 class Game {
   constructor() {
@@ -92,9 +107,9 @@ class Game {
       this.gamePile.unshift(cardPlayed);
       this.updatePlayerTurn();
     }
-    console.log(cardPlayed);
-    console.log(this.playerIsaac.hand);
-    console.log(this.playerMom.hand);
+    console.log(cardPlayed.suit);
+    console.log(this.playerIsaac.hand.length);
+    console.log(this.playerMom.hand.length);
     // DOM: this will need to be called in main.js to update html 'game-pile' element
   }
 
@@ -104,7 +119,7 @@ class Game {
     } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
       this.currentPlayer = this.playerIsaac;
     } else if (this.playerIsaac.hand.length === 0 && this.playerMom.hand.length === 0) {
-        alert("This game is a draw. Please start again!")
+        alert("Please start a new game!")
         this.resetGameDeck();
     } else if (this.playerMom.hand[0] === undefined) {
         this.currentPlayer = this.playerIsaac;
@@ -136,7 +151,7 @@ class Game {
       this.shuffleDeck(player.hand);
     } else {
       console.log("OOPS!");
-      // need fuc
+      // need function to end game if player w/ no cards slaps on a non-Jack!
       var wrongSlappedCard = this.gamePile.shift();
       player.hand.push(wrongSlappedCard);
     }
