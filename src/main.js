@@ -1,4 +1,3 @@
-
 var currentGame = new Game();
 
 // query selectors:
@@ -8,22 +7,27 @@ var momCardDeck = document.querySelector('.mom-player-deck');
 var gamePile = document.querySelector('.game-pile');
 var isaacWins = document.querySelector('.isaac-wins');
 var momWins = document.querySelector('.mom-wins');
-var startGameButton = document.querySelector('.start-slapjack');
+var startGameButton = document.querySelector('.start-button');
+var playAgainGameButton = document.querySelector('.again-button');
 
 // event listeners:
 startGameButton.addEventListener('click', startGame);
+playAgainGameButton.addEventListener('click', newGame);
 document.addEventListener('keydown', playGame);
 
-// I think I want a button to show up that asks if they want to play again.
-// if it is clicked, then it shows the startGameButton.
 function startGame() {
-  startGameButton.classList.add('hidden');
-  gamePile.classList.remove('hidden');
+  changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
   gamePile.src = './assets/thumbs-up-smiley.png';
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
-  momCardDeck.classList.remove('mom-play-shadow');
-  isaacCardDeck.classList.add('isaac-play-shadow');
+  changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
+}
+
+function newGame() {
+  changeHTMLClassProperty(playAgainGameButton, 'hidden', startGameButton, 'hidden');
+  gamePile.classList.add('hidden');
+  gameUpdateMessage.innerText = 'Let\'s Play!';
+  currentGame.resetGameDeck();
 }
 
 function playGame(event) {
@@ -45,8 +49,7 @@ function whoPlayed(event) {
 
 function displayPlayedCard() {
   if (currentGame.gamePile.length === 0) {
-    startGameButton.classList.remove('hidden');
-    gamePile.classList.add('hidden');
+    changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
   } else {
     gamePile.src = currentGame.gamePile[0].src;
   }
@@ -54,40 +57,27 @@ function displayPlayedCard() {
 
 function changePlayerShadow(currentPlayer) {
   if (currentPlayer === 'Isaac') {
-    isaacCardDeck.classList.remove('isaac-play-shadow');
-    momCardDeck.classList.add('mom-play-shadow');
+    changeHTMLClassProperty(momCardDeck, 'mom-play-shadow', isaacCardDeck, 'isaac-play-shadow');
   } else if (currentPlayer === 'Mom') {
-    momCardDeck.classList.remove('mom-play-shadow');
-    isaacCardDeck.classList.add('isaac-play-shadow');
+    changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
   }
 }
 
-function continuelayingCards(playerWithCards, playerWithoutCards) {
-  var currentPlayer 
+function continueLayingCards(playerWithCards, playerWithoutCards) {
+  var currentPlayer
     if (currentGame.playerIsaac.hand.length === 0) {
-      isaacCardDeck.classList.remove('isaac-play-shadow');
-      momCardDeck.classList.add('mom-play-shadow');
-      playerWithCards.hand.push(currentGame.gamePile);
-      currentGame.gamePile = [];
-      playerWithCards.shuffleDeck(playerWithCards.hand);
-      currentGame.currentPlayer = playerWithCards;
+      changeHTMLClassProperty(momCardDeck, 'mom-play-shadow', isaacCardDeck, 'isaac-play-shadow');
     } else if (currentGame.playerMom.hand.length === 0) {
-      momCardDeck.classList.remove('mom-play-shadow');
-      isaacCardDeck.classList.add('isaac-play-shadow');
-      playerWithCards.hand.push(currentGame.gamePile);
-      currentGame.gamePile = [];
-      playerWithCards.shuffleDeck(playerWithCards.hand);
-      currentGame.currentPlayer = playerWithCards;
+      changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
     }
 }
 
 function layCard(currentPlayer, otherPlayer) {
   gameUpdateMessage.innerText = '';
-  continuelayingCards(currentPlayer, otherPlayer)
   changePlayerShadow(currentPlayer.id);
   currentGame.currentPlayer = currentPlayer;
   currentGame.updateGamePile();
-  continuelayingCards()
+  continueLayingCards()
   displayPlayedCard();
 }
 
@@ -110,7 +100,7 @@ function slap(playerWhoSlapped, otherPlayer) {
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
-    winningSlap(playerWhoSlapped);
+    winningSlap();
   } else {
     wrongSlap();
   }
@@ -127,10 +117,11 @@ function updateSlapMessage(player) {
 
 function wrongSlap() {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+  console.log(gamePile);
   gamePile.src = currentGame.gamePile[0].src;
 }
 
-function winningSlap(winner) {
+function winningSlap() {
   if (currentGame.playerIsaac.wonThisHand === true) {
     isaacWinMessage();
   } else if (currentGame.playerMom.wonThisHand === true) {
@@ -143,26 +134,23 @@ function isaacWinMessage() {
   gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
   gamePile.src = './assets/isaac-win-image.jpeg';
   isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
+  playAgainGameButton.classList.remove('hidden');
 };
 
 function momWinMessage() {
   var momTotalWins = document.querySelector('.mom-total-wins');
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
-  momTotalWins.innerText = `${currentGame.playerMom.wins}`
+  momTotalWins.innerText = `${currentGame.playerMom.wins}`;
+  playAgainGameButton.classList.remove('hidden');
 };
 
-
-// keep this in case I can find a way to DRY up layCard();
-// function whoPlayed(event) {
-//   if (event.key == 'q') {
-//     currentGame.currentPlayer = currentGame.playerIsaac;
-//     currentGame.otherPlayer = currentGame.playerMom;
-//     layCard('q', currentGame.playerIsaac);
-//   } else if (event.key == 'p') {
-//       currentGame.currentPlayer = currentGame.playerMom;
-//       currentGame.otherPlayer = currentGame.playerIsaac;
-//       layCard('p', currentGame.currentPlayer);
-//   }
-//   // layCard(currentGame.currentPlayer)
-// }
+function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
+  element1.classList.add(elementClass1);
+  element2.classList.remove(elementClass2);
+  // checking for undefined values:
+  // have an if that checks for undefined
+  // if (element.classList !== undefined) {
+  // run the code
+  // }then don't need an else
+}

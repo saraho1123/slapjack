@@ -3,15 +3,12 @@
 // TODO: If 1 player is out of cards and the other player lays all their cards
 // they need to be able to shuffle their cards and keep playing.
 
-// TODO: fix player shadow when one player runs out of cards.
+// TODO: If alert runs, replace the start button!
 
-// Considera button to return to start game
-
-// Consider a function to update add and remove for classLists.
+// Add instruction for how to play game and
+// which keys do what
 
 // Also! REFACTOR TO BE DRY AND SRP
-
-// thoughts - consider putting wrong slap first!
 
 class Game {
   constructor() {
@@ -37,7 +34,6 @@ class Game {
     for (var i = 0; i < shuffledDeck.length; i++) {
       i % 2 ? this.playerIsaac.hand.push(shuffledDeck[i]) : this.playerMom.hand.push(shuffledDeck[i]);
     }
-    // this.cardDeck = []; // I don't think I need to do this, but I am leaving it here in case I hit a problem later.
   }
 
   updateGamePile() {
@@ -54,6 +50,7 @@ class Game {
   }
 
   updatePlayerTurn() {
+    // TODO: Could refactor IF time!
     if (this.currentPlayer.id === "Isaac" && this.playerMom.hand[0] !== undefined) {
       this.currentPlayer = this.playerMom;
     } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
@@ -66,8 +63,6 @@ class Game {
     } else if (this.playerIsaac.hand[0] === undefined) {
         this.currentPlayer = this.playerMom;
     }
-    // console.log(this.currentPlayer.id);
-    // console.log(this.currentPlayer.hand);
   }
 
   playSlapJack(slapPlayer, otherPlayer) {
@@ -79,7 +74,7 @@ class Game {
     } else if (this.gamePile[0].value === this.gamePile[2].value) {
       this.sandwichSlap(slapPlayer)
     } else {
-      this.wrongSlap(slapPlayer)
+      this.wrongSlap(slapPlayer, otherPlayer)
     }
   }
 
@@ -99,7 +94,7 @@ class Game {
     this.shuffleDeck(sandwichSlapPlayer.hand);
   }
 
-  wrongSlap(wrongSlapPlayer) {
+  wrongSlap(wrongSlapPlayer, otherPlayer) {
     var wrongSlappedCard = this.gamePile.shift();
     otherPlayer.hand.push(wrongSlappedCard);
     this.slapIsCorrect = false;
@@ -115,17 +110,15 @@ class Game {
   updateWinner(playerWhoSlaps) {
     if (this.playerIsaac.hand.length === 0 &&  playerWhoSlaps.id === "Mom") {
       this.playerMom.updateWins();
-      this.resetGameDeck();
     } else if (this.playerMom.hand.length === 0 && playerWhoSlaps.id === "Isaac") {
       this.playerIsaac.updateWins();
-      this.resetGameDeck();
     }
   }
 
   resetGameDeck() {
     this.gamePile = [];
-    this.playerIsaac.hand = [];
-    this.playerMom.hand = [];
+    this.playerIsaac.resetPlayerDetails();
+    this.playerMom.resetPlayerDetails();
     this.currentPlayer = this.playerIsaac;
     this.otherPlayer = this.playerMom;
   }
