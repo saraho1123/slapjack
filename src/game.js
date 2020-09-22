@@ -3,12 +3,9 @@
 // TODO: If 1 player is out of cards and the other player lays all their cards
 // they need to be able to shuffle their cards and keep playing.
 
-// TODO: fix player shadow when one player runs out of cards.
-
+// TODO: If alert runs, replace the start button!
 
 // Also! REFACTOR TO BE DRY AND SRP
-
-// thoughts - consider putting wrong slap first!
 
 class Game {
   constructor() {

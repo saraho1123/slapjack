@@ -148,18 +148,3 @@ function changeHTMLClassProperty(element1, elementClass1, element2, elementClass
   element1.classList.add(elementClass1);
   element2.classList.remove(elementClass2);
 }
-
-
-// keep this in case I can find a way to DRY up layCard();
-// function whoPlayed(event) {
-//   if (event.key == 'q') {
-//     currentGame.currentPlayer = currentGame.playerIsaac;
-//     currentGame.otherPlayer = currentGame.playerMom;
-//     layCard('q', currentGame.playerIsaac);
-//   } else if (event.key == 'p') {
-//       currentGame.currentPlayer = currentGame.playerMom;
-//       currentGame.otherPlayer = currentGame.playerIsaac;
-//       layCard('p', currentGame.currentPlayer);
-//   }
-//   // layCard(currentGame.currentPlayer)
-// }
