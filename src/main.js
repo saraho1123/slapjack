@@ -51,6 +51,8 @@ function returnWinsFromLocalStorage() {
   }
 }
 
+returnWinsFromLocalStorage();
+
 function playGame(event) {
   if (event.key === 'f' || event.key === 'j') {
     whoSlapped(event);
