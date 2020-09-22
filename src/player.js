@@ -23,13 +23,12 @@ class Player {
 }
 
   saveWinsToStorage(isaacWins, momWins) {
-    // console.log("set up local storage!");
     var currentWins = [];
     currentWins.push(isaacWins);
     currentWins.push(momWins);
-    // console.log(currentWins);
     var persistWins = JSON.stringify(currentWins);
     localStorage.setItem('totalWins', persistWins);
+
     // console.log(localStorage.getItem('totalWins'));
     // // JOSN and local storage! Yay!
     // // Psuedocode:
