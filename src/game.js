@@ -5,9 +5,6 @@
 
 // TODO: fix player shadow when one player runs out of cards.
 
-// Considera button to return to start game
-
-// Consider a function to update add and remove for classLists.
 
 // Also! REFACTOR TO BE DRY AND SRP
 
@@ -37,7 +34,6 @@ class Game {
     for (var i = 0; i < shuffledDeck.length; i++) {
       i % 2 ? this.playerIsaac.hand.push(shuffledDeck[i]) : this.playerMom.hand.push(shuffledDeck[i]);
     }
-    // this.cardDeck = []; // I don't think I need to do this, but I am leaving it here in case I hit a problem later.
   }
 
   updateGamePile() {
@@ -54,6 +50,7 @@ class Game {
   }
 
   updatePlayerTurn() {
+    // TODO: Could refactor IF time!
     if (this.currentPlayer.id === "Isaac" && this.playerMom.hand[0] !== undefined) {
       this.currentPlayer = this.playerMom;
     } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
@@ -66,8 +63,6 @@ class Game {
     } else if (this.playerIsaac.hand[0] === undefined) {
         this.currentPlayer = this.playerMom;
     }
-    // console.log(this.currentPlayer.id);
-    // console.log(this.currentPlayer.hand);
   }
 
   playSlapJack(slapPlayer, otherPlayer) {
@@ -99,7 +94,7 @@ class Game {
     this.shuffleDeck(sandwichSlapPlayer.hand);
   }
 
-  wrongSlap(wrongSlapPlayer) {
+  wrongSlap(wrongSlapPlayer, otherPlayer) {
     var wrongSlappedCard = this.gamePile.shift();
     otherPlayer.hand.push(wrongSlappedCard);
     this.slapIsCorrect = false;
@@ -115,10 +110,8 @@ class Game {
   updateWinner(playerWhoSlaps) {
     if (this.playerIsaac.hand.length === 0 &&  playerWhoSlaps.id === "Mom") {
       this.playerMom.updateWins();
-      this.resetGameDeck();
     } else if (this.playerMom.hand.length === 0 && playerWhoSlaps.id === "Isaac") {
       this.playerIsaac.updateWins();
-      this.resetGameDeck();
     }
   }
 

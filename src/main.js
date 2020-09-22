@@ -8,16 +8,12 @@ var gamePile = document.querySelector('.game-pile');
 var isaacWins = document.querySelector('.isaac-wins');
 var momWins = document.querySelector('.mom-wins');
 var startGameButton = document.querySelector('.start-button');
-var newGameButton = document.querySelector('.new-button');
+var playAgainGameButton = document.querySelector('.again-button');
 
 // event listeners:
 startGameButton.addEventListener('click', startGame);
+playAgainGameButton.addEventListener('click', newGame);
 document.addEventListener('keydown', playGame);
-
-function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
-  element1.classList.add(elementClass1);
-  element2.classList.remove(elementClass2);
-}
 
 function startGame() {
   changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
@@ -28,7 +24,7 @@ function startGame() {
 }
 
 function newGame() {
-  changeHTMLClassProperty(newGameButton, 'hidden', startGameButton, 'hidden');
+  changeHTMLClassProperty(playAgainGameButton, 'hidden', startGameButton, 'hidden');
   gamePile.classList.add('hidden');
   gameUpdateMessage.innerText = 'Let\'s Play!';
   currentGame.resetGameDeck();
@@ -137,7 +133,7 @@ function isaacWinMessage() {
   gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
   gamePile.src = './assets/isaac-win-image.jpeg';
   isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
-  newGameButton.classList.remove('hidden');
+  playAgainGameButton.classList.remove('hidden');
 };
 
 function momWinMessage() {
@@ -145,8 +141,13 @@ function momWinMessage() {
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
   momTotalWins.innerText = `${currentGame.playerMom.wins}`;
-  newGameButton.classList.remove('hidden');
+  playAgainGameButton.classList.remove('hidden');
 };
+
+function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
+  element1.classList.add(elementClass1);
+  element2.classList.remove(elementClass2);
+}
 
 
 // keep this in case I can find a way to DRY up layCard();

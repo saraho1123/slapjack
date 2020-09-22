@@ -24,6 +24,7 @@ body {
 img {
   height: 16em;
   width:12em;
+  border-radius: 0.6em;
 }
 
 .game-deck {
@@ -48,13 +49,12 @@ img {
   margin-top: 5em;
 }
 
-.start-button {
-
-}
-
-.new-button {
-  height: 5em;
-  width: 10em;
+.again-button {
+  height: 3.5em;
+  width: 8em;
+  font-size: xx-large;
+  margin: 2em;
+  box-shadow: 10px 10px purple;
 }
 
 .isaac-play-shadow {
