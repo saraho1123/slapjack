@@ -16,8 +16,6 @@ class Player {
     this.wonThisHand = true;
   }
 
-
-
   saveWinsToStorage() {
     // JOSN and local storage! Yay!
   }
