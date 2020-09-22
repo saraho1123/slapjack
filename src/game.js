@@ -65,18 +65,26 @@ class Game {
     }
   }
 
-  playSlapJack(slapPlayer, otherPlayer) {
-    // this has a bug! error if a slap attempt is made before 3 cards are played.
-    if (this.gamePile[0].suit.includes("jack")) {
-      this.jackSlap(slapPlayer)
-    } else if (this.gamePile[0].value === this.gamePile[1].value) {
-      this.doubleSlap(slapPlayer)
-    } else if (this.gamePile[0].value === this.gamePile[2].value) {
-      this.sandwichSlap(slapPlayer)
-    } else {
-      this.wrongSlap(slapPlayer, otherPlayer)
+
+    // numberOfCardsInPile() {
+    //   if (this.gamePile.length > 2 ) {
+    //     playSlapJack()
+    //   }
+    // }
+    playSlapJack(slapPlayer, otherPlayer) {
+      // this has a bug! error if a slap attempt is made before 3 cards are played.
+      if (this.gamePile.length < 3 && !this.gamePile[0].suit.includes("jack")) {
+        this.wrongSlap(slapPlayer, otherPlayer)
+      } else if (this.gamePile[0].suit.includes("jack")) {
+        this.jackSlap(slapPlayer)
+      } else if (this.gamePile[0].value === this.gamePile[1].value) {
+        this.doubleSlap(slapPlayer)
+      } else if (this.gamePile[0].value === this.gamePile[2].value) {
+        this.sandwichSlap(slapPlayer)
+      // } else {
+      //   this.wrongSlap(slapPlayer, otherPlayer)
+      }
     }
-  }
 
   jackSlap(jackSlapPlayer) {
     this.updateATrueConditionSlap(jackSlapPlayer);
