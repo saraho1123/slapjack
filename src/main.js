@@ -100,7 +100,7 @@ function slap(playerWhoSlapped, otherPlayer) {
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
-    winningSlap(playerWhoSlapped);
+    winningSlap();
   } else {
     wrongSlap();
   }
@@ -117,10 +117,11 @@ function updateSlapMessage(player) {
 
 function wrongSlap() {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+  console.log(gamePile);
   gamePile.src = currentGame.gamePile[0].src;
 }
 
-function winningSlap(winner) {
+function winningSlap() {
   if (currentGame.playerIsaac.wonThisHand === true) {
     isaacWinMessage();
   } else if (currentGame.playerMom.wonThisHand === true) {
@@ -147,4 +148,9 @@ function momWinMessage() {
 function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
   element1.classList.add(elementClass1);
   element2.classList.remove(elementClass2);
+  // checking for undefined values:
+  // have an if that checks for undefined
+  // if (element.classList !== undefined) {
+  // run the code
+  // }then don't need an else
 }

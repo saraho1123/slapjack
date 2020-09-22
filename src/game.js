@@ -5,6 +5,9 @@
 
 // TODO: If alert runs, replace the start button!
 
+// Add instruction for how to play game and
+// which keys do what
+
 // Also! REFACTOR TO BE DRY AND SRP
 
 class Game {
@@ -71,7 +74,7 @@ class Game {
     } else if (this.gamePile[0].value === this.gamePile[2].value) {
       this.sandwichSlap(slapPlayer)
     } else {
-      this.wrongSlap(slapPlayer)
+      this.wrongSlap(slapPlayer, otherPlayer)
     }
   }
 

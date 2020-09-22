@@ -24,5 +24,9 @@ class Player {
 
   saveWinsToStorage() {
     // JOSN and local storage! Yay!
+    // consider a button to clear local storage (Clear Wins)
+    // consider inputs for player names and save names and wins count.
+    // add a name property to Player
+    // Would need to make my code more generic (player1 and player2)
   }
 }
