@@ -67,20 +67,12 @@ function changePlayerShadow(currentPlayer) {
   }
 }
 
-function continuelayingCards(playerWithCards, playerWithoutCards) {
+function continueLayingCards(playerWithCards, playerWithoutCards) {
   var currentPlayer
     if (currentGame.playerIsaac.hand.length === 0) {
       changeHTMLClassProperty(momCardDeck, 'mom-play-shadow', isaacCardDeck, 'isaac-play-shadow');
-      playerWithCards.hand.push(currentGame.gamePile);
-      currentGame.gamePile = [];
-      playerWithCards.shuffleDeck(playerWithCards.hand);
-      currentGame.currentPlayer = playerWithCards;
     } else if (currentGame.playerMom.hand.length === 0) {
       changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
-      playerWithCards.hand.push(currentGame.gamePile);
-      currentGame.gamePile = [];
-      playerWithCards.shuffleDeck(playerWithCards.hand);
-      currentGame.currentPlayer = playerWithCards;
     }
 }
 
@@ -89,7 +81,7 @@ function layCard(currentPlayer, otherPlayer) {
   changePlayerShadow(currentPlayer.id);
   currentGame.currentPlayer = currentPlayer;
   currentGame.updateGamePile();
-  continuelayingCards()
+  continueLayingCards()
   displayPlayedCard();
 }
 
