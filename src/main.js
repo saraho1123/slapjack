@@ -14,8 +14,11 @@ var newGameButton = document.querySelector('.new-button');
 startGameButton.addEventListener('click', startGame);
 document.addEventListener('keydown', playGame);
 
-// I think I want a button to show up that asks if they want to play again.
-// if it is clicked, then it shows the startGameButton.
+function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
+  element1.classList.add(elementClass1);
+  element2.classList.remove(elementClass2);
+}
+
 function startGame() {
   startGameButton.classList.add('hidden');
   gamePile.src = './assets/thumbs-up-smiley.png';
