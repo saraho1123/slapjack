@@ -126,7 +126,6 @@ function isaacWinMessage() {
 };
 
 function momWinMessage() {
-  debugger
   var momTotalWins = document.querySelector('.mom-total-wins');
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
@@ -134,7 +133,7 @@ function momWinMessage() {
 };
 
 
-
+// keep this in case I can find a way to DRY up layCard();
 // function whoPlayed(event) {
 //   if (event.key == 'q') {
 //     currentGame.currentPlayer = currentGame.playerIsaac;
