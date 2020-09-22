@@ -127,7 +127,7 @@ function whoSlapped(event) {
 }
 
 function slap(playerWhoSlapped, otherPlayer) {
-  var gameDeck = document.querySelector('.game-deck');
+  // var gameDeck = document.querySelector('.game-deck');
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
@@ -147,10 +147,20 @@ function updateSlapMessage(player) {
 }
 
 function wrongSlap() {
-  var jack = currentGame.gamePile[0].suit.includes("jack");
-  var double = this.gamePile[0].value === this.gamePile[1].value;
-  var sandwich = this.gamePile[0].value === this.gamePile[2].value;
-  if (currentGame.gamePile.length < 3 && !jack && !double && !sandwich) {
+  // if (currentGame.gamePile.length > 3) {
+  //   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+  //   gamePile.src = './assets/oops-smiley.jpg';
+  // } else if (currentGame.gamePile.length < 3 && !jack && !double && !sandwich) {
+  //   var jack = currentGame.gamePile[0].suit.includes("jack");
+  //   var double = this.gamePile[0].value === this.gamePile[1].value;
+  //   var sandwich = this.gamePile[0].value === this.gamePile[2].value;
+  //   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+  //   gamePile.src = currentGame.gamePile[0].src;
+  // }
+  // var jack = currentGame.gamePile[0].suit.includes("jack");
+  // var double = this.gamePile[0].value === this.gamePile[1].value;
+  // var sandwich = this.gamePile[0].value === this.gamePile[2].value;
+  if (currentGame.currentPlayer.slapIsCorrect === false || currentGame.otherPlayer.slapIsCorrect === false) {
     gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
     gamePile.src = currentGame.gamePile[0].src;
   } else {
