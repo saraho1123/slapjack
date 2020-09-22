@@ -94,12 +94,13 @@ function slap(playerWhoSlapped, otherPlayer) {
 }
 
 function updateSlapMessage(player) {
+  gamePile.src = './assets/thumbs-up-smiley.png';
   if (player.id === "Isaac") {
     gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
-    gamePile.src = './assets/isaac-win-card-back.jpeg';
+    // gamePile.src = './assets/thumbs-up-smiley.png';
   } else if (player.id === "Mom") {
     gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
-    gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
+    // gamePile.src = './assets/thumbs-up-smiley.png';
   }
 }
 
@@ -111,17 +112,23 @@ function wrongSlap () {
 function winningSlap(winner) {
   var isaacTotalWins = document.querySelector('.isaac-total-wins');
   var momTotalWins = document.querySelector('.mom-total-wins');
-  if (currentGame.playerIsaac.wins > 0) {
+  if (winner.wins > 0) {
     gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
-    gamePile.classList.add('hidden');
+    gamePile.src = './assets/isaac-win-image.jpeg';
     isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
-  } else if (currentGame.playerMom.wins > 0) {
+  } else if (winner.wins > 0) {
     gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
     startGameButton.classList.remove('hidden');
     gamePile.classList.add('hidden');
     momTotalWins.innerText = `${currentGame.playerMom.wins}`
   }
 }
+
+// function winMessage() {
+//   whoSlapped(event);
+//   if ()
+// };
+
 // function play() {
 //   console.log('whats up!');
 //   if (event.key === 'f' || event.key === 'F') {
