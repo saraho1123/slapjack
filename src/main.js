@@ -21,13 +21,26 @@ function startGame() {
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
   changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
+  returnWinsFromLocalStorage();
 }
 
 function newGame() {
+  currentGame.currentPlayer.saveWinsToStorage(currentGame.playerIsaac.wins, currentGame.playerMom.wins);
+  // currentGame.playerMom.saveWinsToStorage(currentGame.playerMom.wins);
   changeHTMLClassProperty(playAgainGameButton, 'hidden', startGameButton, 'hidden');
   gamePile.classList.add('hidden');
   gameUpdateMessage.innerText = 'Let\'s Play!';
   currentGame.resetGameDeck();
+}
+
+function returnWinsFromLocalStorage() {
+  var winsToDisplay = JSON.parse(localStorage.getItem('totalWins'));
+  console.log(winsToDisplay);
+  // for (var i = 0; i < winsToDisplay.length; i++) {
+  //   winsToDisplay[0]
+  // }
+  isaacWins.innerText = winsToDisplay[0];
+  momWins.innerText = winsToDisplay[1];
 }
 
 function playGame(event) {
@@ -117,7 +130,6 @@ function updateSlapMessage(player) {
 
 function wrongSlap() {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
-  console.log(gamePile);
   gamePile.src = currentGame.gamePile[0].src;
 }
 

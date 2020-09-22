@@ -1,8 +1,8 @@
 var cardDeck = [
   {suit: "blue-A", value: "A", src: "./assets/blue-01.png"},
-  {suit: "blue-2",  value: "2", src: "./assets/blue-02.png"},
-  {suit: "blue-3",  value: "3", src: "./assets/blue-03.png"},
-  {suit: "blue-4",  value: "4", src: "./assets/blue-04.png"},
+  // {suit: "blue-2",  value: "2", src: "./assets/blue-02.png"},
+  // {suit: "blue-3",  value: "3", src: "./assets/blue-03.png"},
+  // {suit: "blue-4",  value: "4", src: "./assets/blue-04.png"},
   // {suit: "blue-5",  value: "5", src: "./assets/blue-05.png"},
   // {suit: "blue-6",  value: "6", src: "./assets/blue-06.png"},
   // {suit: "blue-7",  value: "7", src: "./assets/blue-07.png"},
