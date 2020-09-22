@@ -63,7 +63,6 @@ class Game {
     console.log(cardPlayed.suit);
     console.log(this.playerIsaac.hand.length);
     console.log(this.playerMom.hand.length);
-    // DOM: this will need to be called in main.js to update html 'game-pile' element
   }
 
   updatePlayerTurn() {
@@ -112,10 +111,10 @@ class Game {
 
   updateWinner(playerWhoSlaps) {
     if (this.playerIsaac.hand.length === 0 &&  playerWhoSlaps.id === "Mom") {
-      this.playerMom.updateWins();
+      this.playerMom++;
       this.resetGameDeck();
     } else if (this.playerMom.hand.length === 0 && playerWhoSlaps.id === "Isaac") {
-      this.playerIsaac.updateWins();
+      this.playerIsaac++;
       this.resetGameDeck();
     }
   }
