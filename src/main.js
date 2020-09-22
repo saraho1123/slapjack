@@ -1,4 +1,3 @@
-
 var currentGame = new Game();
 
 // query selectors:
@@ -8,7 +7,8 @@ var momCardDeck = document.querySelector('.mom-player-deck');
 var gamePile = document.querySelector('.game-pile');
 var isaacWins = document.querySelector('.isaac-wins');
 var momWins = document.querySelector('.mom-wins');
-var startGameButton = document.querySelector('.start-slapjack');
+var startGameButton = document.querySelector('.start-button');
+var newGameButton = document.querySelector('.new-button');
 
 // event listeners:
 startGameButton.addEventListener('click', startGame);
@@ -18,12 +18,18 @@ document.addEventListener('keydown', playGame);
 // if it is clicked, then it shows the startGameButton.
 function startGame() {
   startGameButton.classList.add('hidden');
-  gamePile.classList.remove('hidden');
   gamePile.src = './assets/thumbs-up-smiley.png';
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
   momCardDeck.classList.remove('mom-play-shadow');
   isaacCardDeck.classList.add('isaac-play-shadow');
+}
+
+function newGame() {
+  changeHTMLClassProperty(newGameButton, 'hidden', startGameButton, 'hidden');
+  gamePile.classList.add('hidden');
+  gameUpdateMessage.innerText = 'Let\'s Play!';
+  currentGame.resetGameDeck();
 }
 
 function playGame(event) {
@@ -63,7 +69,7 @@ function changePlayerShadow(currentPlayer) {
 }
 
 function continuelayingCards(playerWithCards, playerWithoutCards) {
-  var currentPlayer 
+  var currentPlayer
     if (currentGame.playerIsaac.hand.length === 0) {
       isaacCardDeck.classList.remove('isaac-play-shadow');
       momCardDeck.classList.add('mom-play-shadow');
