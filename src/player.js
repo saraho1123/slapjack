@@ -16,6 +16,12 @@ class Player {
     this.wonThisHand = true;
   }
 
+  resetPlayerDetails() {
+  this.hand = [];
+  this.slapped = false;
+  this.wonThisHand = false;
+}
+
   saveWinsToStorage() {
     // JOSN and local storage! Yay!
   }
