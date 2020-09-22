@@ -70,8 +70,14 @@ function whoPlayed(event) {
 }
 
 
+
 function displayPlayedCard() {
-  if (currentGame.gamePile.length === 0) {
+  console.log(currentGame.gamePile.length);
+  if (currentGame.gamePile.length === 0 && currentGame.currentPlayer.hand.length <= 1) {
+    changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
+    startGame();
+    gameUpdateMessage.innerText = 'You both ran out of cards, but you can keep playing!';
+  } else if (currentGame.gamePile.length === 0) {
     changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
   } else {
     gamePile.src = currentGame.gamePile[0].src;
