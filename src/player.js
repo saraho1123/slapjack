@@ -22,15 +22,15 @@ class Player {
   this.wonThisHand = false;
 }
 
-  saveWinsToStorage(wins) {
+  saveWinsToStorage(currentWin) {
     // JOSN and local storage! Yay!
     // Psuedocode:
     // need to declare a var and assign it to the wins with JSON parsed
     // I think I can us a param and pass thru the wins with an argumnt in newButton
     // I also need to make a return from storage function in main.js
-
-
-
+    pastWins.push(currentWin);
+    var wins = JSON.stringify(pastWins);
+    localStorage.setItem('allWins', wins)
 
     // consider a button to clear local storage (Clear Wins)
     // consider inputs for player names and save names and wins count.
