@@ -29,36 +29,24 @@ function startGame() {
 function playGame(event) {
   if (event.key === 'f' || event.key === 'j') {
     whoSlapped(event);
-
   } else if (event.key === 'q' || event.key === 'p') {
-    whoPlayed()
-    layCard(event);
-  }
-}
-
-function whoSlapped(event) {
-  if (event.key === 'f') {
-    currentGame.playerIsaac.slapped = true;
-    slap(currentGame.playerIsaac);
-  } else if (event.key === 'j') {
-    currentGame.playerIsaac.slapped = true;
-  }
-}
-
-function whoPlayed() {
-  if (event.key == 'q') {
-    currentGame.currentPlayer = currentGame.playerIsaac;
-    currentGame.otherPlayer = currentGame.playerMom;
-  } else if (event.key == 'p') {
-      currentGame.currentPlayer = currentGame.playerMom;
-      currentGame.otherPlayer = currentGame.playerIsaac;
+    // whoPlayed(event)
+    layCard(event)
   }
 }
 
 function layCard(event) {
-  changePlayerShadow();
-  currentGame.updateGamePile();
-  displayPlayedCard();
+  if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
+    changePlayerShadow(currentGame.playerIsaac.id);
+    currentGame.currentPlayer = currentGame.playerIsaac;
+    currentGame.updateGamePile();
+    displayPlayedCard();
+  } else if (event.key == 'p' && currentGame.currentPlayer.id === "Mom") {
+    changePlayerShadow(currentGame.playerMom.id);
+    currentGame.currentPlayer = currentGame.playerMom;
+    currentGame.updateGamePile();
+    displayPlayedCard();
+  }
 }
 
 function displayPlayedCard() {
@@ -70,61 +58,61 @@ function displayPlayedCard() {
   }
 }
 
-function changePlayerShadow() {
-  whoPlayed();
-  if (currentGame.currentPlayer.id === 'Isaac') {
+function changePlayerShadow(currentPlayer) {
+  // whoPlayed();
+  if (currentPlayer === 'Isaac') {
+    console.log(currentPlayer);
     isaacCardDeck.classList.remove('isaac-play-shadow');
     momCardDeck.classList.add('mom-play-shadow');
-  } else if (currentGame.currentPlayer.id === 'Mom') {
+  } else if (currentPlayer === 'Mom') {
       momCardDeck.classList.remove('mom-play-shadow');
       isaacCardDeck.classList.add('isaac-play-shadow');
     }
 }
 
-function slap(playerWhoSlapped) {
+function whoSlapped(event) {
+  if (event.key === 'f') {
+    currentGame.playerIsaac.slapped = true;
+    currentGame.playerMom.slapped = false;
+    slap(currentGame.playerIsaac, currentGame.playerMom);
+  } else if (event.key === 'j') {
+    currentGame.playerMom.slapped = true;
+    currentGame.playerIsaac.slapped = false;
+    slap(currentGame.playerMom, currentGame.playerIsaac);
+  }
+}
+
+function slap(playerWhoSlapped, otherPlayer) {
   var gameDeck = document.querySelector('.game-deck');
-  // whoPlayed();
-  // whoSlapped();
-  currentGame.playSlapJack(currentGame.currentPlayer, currentGame.otherPlayer);
+  currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
-    // gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
-    // gamePile.src = './assets/isaac-win-card-back.jpeg';
-    winningSlap();
-  // } else if (currentGame.playerMom.slapped === true && currentGame.slapIsCorrect === true) {
-  //     // gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
-  //     // gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
-  //     winningSlap();
+    winningSlap(playerWhoSlapped);
   } else {
     wrongSlap();
   }
 }
 
 function updateSlapMessage(player) {
-  // var gameDeck = document.querySelector('.game-deck');
-  if (player.id = "Isaac") {
+  if (player.id === "Isaac") {
     gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
     gamePile.src = './assets/isaac-win-card-back.jpeg';
-  } else if (player.id = "Mom") {
+  } else if (player.id === "Mom") {
     gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
     gamePile.src = './assets/mom-w-isaac-win-back.jpeg';
   }
 }
-
-
-// I want to call who slapped in the play game and then call slap(slapper)
 
 function wrongSlap () {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
   gamePile.src = currentGame.gamePile[0].src;
 }
 
-function winningSlap() {
+function winningSlap(winner) {
   var isaacTotalWins = document.querySelector('.isaac-total-wins');
   var momTotalWins = document.querySelector('.mom-total-wins');
   if (currentGame.playerIsaac.wins > 0) {
     gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
-    startGameButton.classList.remove('hidden');
     gamePile.classList.add('hidden');
     isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
   } else if (currentGame.playerMom.wins > 0) {
@@ -145,4 +133,18 @@ function winningSlap() {
 //   } else if (event.key === 'p' || event.key === 'P') {
 //     console.log('Pplaycard');
 //   }
+// }
+
+
+// function whoPlayed(event) {
+//   if (event.key == 'q') {
+//     currentGame.currentPlayer = currentGame.playerIsaac;
+//     currentGame.otherPlayer = currentGame.playerMom;
+//     layCard('q', currentGame.playerIsaac);
+//   } else if (event.key == 'p') {
+//       currentGame.currentPlayer = currentGame.playerMom;
+//       currentGame.otherPlayer = currentGame.playerIsaac;
+//       layCard('p', currentGame.currentPlayer);
+//   }
+//   // layCard(currentGame.currentPlayer)
 // }
