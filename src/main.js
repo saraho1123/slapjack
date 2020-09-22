@@ -20,12 +20,11 @@ function changeHTMLClassProperty(element1, elementClass1, element2, elementClass
 }
 
 function startGame() {
-  startGameButton.classList.add('hidden');
+  changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
   gamePile.src = './assets/thumbs-up-smiley.png';
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
-  momCardDeck.classList.remove('mom-play-shadow');
-  isaacCardDeck.classList.add('isaac-play-shadow');
+  changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
 }
 
 function newGame() {
