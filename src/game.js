@@ -124,8 +124,8 @@ class Game {
 
   resetGameDeck() {
     this.gamePile = [];
-    this.playerIsaac.hand = [];
-    this.playerMom.hand = [];
+    this.playerIsaac.resetPlayerDetails();
+    this.playerMom.resetPlayerDetails();
     this.currentPlayer = this.playerIsaac;
     this.otherPlayer = this.playerMom;
   }
