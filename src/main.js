@@ -19,7 +19,7 @@ document.addEventListener('keydown', playGame);
 function startGame() {
   startGameButton.classList.add('hidden');
   gamePile.classList.remove('hidden');
-  gamePile.src = './assets/isaac-cardback.jpeg';
+  gamePile.src = './assets/thumbs-up-smiley.png';
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
   momCardDeck.classList.remove('mom-play-shadow');
@@ -30,12 +30,12 @@ function playGame(event) {
   if (event.key === 'f' || event.key === 'j') {
     whoSlapped(event);
   } else if (event.key === 'q' || event.key === 'p') {
-    // whoPlayed(event)
     layCard(event)
   }
 }
 
 function layCard(event) {
+  // ASK TARAS: can I refactor to be more DRY, like slap()?
   if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
     changePlayerShadow(currentGame.playerIsaac.id);
     currentGame.currentPlayer = currentGame.playerIsaac;
@@ -80,6 +80,8 @@ function whoSlapped(event) {
     currentGame.playerIsaac.slapped = false;
     slap(currentGame.playerMom, currentGame.playerIsaac);
   }
+  // ASK TARAS: This does not seem very DRY, but I cannot think of any other way to do this.
+  // At least I only do it once? And it makes slap() really DRY and SRP!
 }
 
 function slap(playerWhoSlapped, otherPlayer) {
@@ -87,7 +89,7 @@ function slap(playerWhoSlapped, otherPlayer) {
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
-    winningSlap(playerWhoSlapped);
+    winningSlap(playerWhoSlapped, otherPlayer);
   } else {
     wrongSlap();
   }
@@ -97,22 +99,20 @@ function updateSlapMessage(player) {
   gamePile.src = './assets/thumbs-up-smiley.png';
   if (player.id === "Isaac") {
     gameUpdateMessage.innerText = '🤠🐉Isaac won the slap!🐉🤠';
-    // gamePile.src = './assets/thumbs-up-smiley.png';
   } else if (player.id === "Mom") {
     gameUpdateMessage.innerText = '🥳🟣Mom won the slap!🟣🥳';
-    // gamePile.src = './assets/thumbs-up-smiley.png';
   }
 }
 
-function wrongSlap () {
+function wrongSlap() {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
   gamePile.src = currentGame.gamePile[0].src;
 }
 
-function winningSlap(winner) {
+function winningSlap(winner, notTheWinner) {
   var isaacTotalWins = document.querySelector('.isaac-total-wins');
   var momTotalWins = document.querySelector('.mom-total-wins');
-  if (winner.wins > 0) {
+  if (winner.wonThisHand === true) {
     gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
     gamePile.src = './assets/isaac-win-image.jpeg';
     isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
@@ -124,10 +124,7 @@ function winningSlap(winner) {
   }
 }
 
-// function winMessage() {
-//   whoSlapped(event);
-//   if ()
-// };
+/
 
 // function play() {
 //   console.log('whats up!');
