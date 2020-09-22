@@ -89,7 +89,7 @@ class Game {
     // this has a bug! error if a slap attempt is made before 3 cards are played.
     if (this.gamePile[0].suit.includes("jack")) {
       this.updateATrueConditionSlap(slapPlayer);
-      this.updateWins(slapPlayer);
+      this.updateWinner(slapPlayer);
       this.shuffleDeck(slapPlayer.hand);
     } else if (this.gamePile[0].value === this.gamePile[1].value) {
       this.updateATrueConditionSlap(slapPlayer);
@@ -110,18 +110,14 @@ class Game {
     this.gamePile = [];
   }
 
-  updateWins(playerWhoSlaps) {
-    // debugger
+  updateWinner(playerWhoSlaps) {
     if (this.playerIsaac.hand.length === 0 &&  playerWhoSlaps.id === "Mom") {
-      console.log("Mom wins!");
-      this.playerMom.wins++;
+      this.playerMom.updateWins();
       this.resetGameDeck();
     } else if (this.playerMom.hand.length === 0 && playerWhoSlaps.id === "Isaac") {
-      console.log("Isaac wins!");
-      this.playerIsaac.wins++;
+      this.playerIsaac.updateWins();
       this.resetGameDeck();
     }
-    // this.currentPlayer.wins++;
   }
 
   resetGameDeck() {
