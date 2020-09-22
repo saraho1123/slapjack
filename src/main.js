@@ -139,8 +139,16 @@ function updateSlapMessage(player) {
 }
 
 function wrongSlap() {
-  gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
-  gamePile.src = currentGame.gamePile[0].src;
+  var jack = currentGame.gamePile[0].suit.includes("jack");
+  var double = this.gamePile[0].value === this.gamePile[1].value;
+  var sandwich = this.gamePile[0].value === this.gamePile[2].value;
+  if (currentGame.gamePile.length < 3 && !jack && !double && !sandwich) {
+    gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+    gamePile.src = currentGame.gamePile[0].src;
+  } else {
+    gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+    gamePile.src = './assets/oops-smiley.jpg';
+  }
 }
 
 function winningSlap() {
