@@ -5,12 +5,15 @@ var gameUpdateMessage = document.querySelector('.update-message');
 var isaacCardDeck = document.querySelector('.isaac-player-deck');
 var momCardDeck = document.querySelector('.mom-player-deck');
 var gamePile = document.querySelector('.game-pile');
-var isaacWins = document.querySelector('.isaac-wins');
-var momWins = document.querySelector('.mom-wins');
+// var isaacWins = document.querySelector('.isaac-wins');
+// var momWins = document.querySelector('.mom-wins');
+var momTotalWins = document.querySelector('.mom-total-wins');
+var isaacTotalWins = document.querySelector('.isaac-total-wins');
 var startGameButton = document.querySelector('.start-button');
 var playAgainGameButton = document.querySelector('.again-button');
 
 // event listeners:
+
 startGameButton.addEventListener('click', startGame);
 playAgainGameButton.addEventListener('click', newGame);
 document.addEventListener('keydown', playGame);
@@ -21,13 +24,31 @@ function startGame() {
   currentGame.shuffleDeck(currentGame.cardDeck);
   currentGame.dealHand(currentGame.cardDeck);
   changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
+  returnWinsFromLocalStorage();
 }
 
 function newGame() {
+  currentGame.currentPlayer.saveWinsToStorage(currentGame.playerIsaac.wins, currentGame.playerMom.wins);
+  // currentGame.playerMom.saveWinsToStorage(currentGame.playerMom.wins);
   changeHTMLClassProperty(playAgainGameButton, 'hidden', startGameButton, 'hidden');
   gamePile.classList.add('hidden');
   gameUpdateMessage.innerText = 'Let\'s Play!';
   currentGame.resetGameDeck();
+  returnWinsFromLocalStorage();
+}
+
+function returnWinsFromLocalStorage() {
+  var winsToDisplay = JSON.parse(localStorage.getItem('totalWins'));
+  console.log(winsToDisplay);
+  if (winsToDisplay === null) {
+    isaacTotalWins.innerText = 0;
+    momTotalWins.innerText = 0;
+  } else {
+    currentGame.playerIsaac.wins = winsToDisplay[0]
+    currentGame.playerMom.wins = winsToDisplay[1]
+    isaacTotalWins.innerText = winsToDisplay[0];
+    momTotalWins.innerText = winsToDisplay[1];
+  }
 }
 
 function playGame(event) {
@@ -37,6 +58,8 @@ function playGame(event) {
     whoPlayed(event)
   }
 }
+
+returnWinsFromLocalStorage();
 
 function whoPlayed(event) {
   if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
@@ -117,7 +140,6 @@ function updateSlapMessage(player) {
 
 function wrongSlap() {
   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
-  console.log(gamePile);
   gamePile.src = currentGame.gamePile[0].src;
 }
 
@@ -130,7 +152,7 @@ function winningSlap() {
 }
 
 function isaacWinMessage() {
-  var isaacTotalWins = document.querySelector('.isaac-total-wins');
+  // var isaacTotalWins = document.querySelector('.isaac-total-wins');
   gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
   gamePile.src = './assets/isaac-win-image.jpeg';
   isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
@@ -138,7 +160,7 @@ function isaacWinMessage() {
 };
 
 function momWinMessage() {
-  var momTotalWins = document.querySelector('.mom-total-wins');
+  // var momTotalWins = document.querySelector('.mom-total-wins');
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
   momTotalWins.innerText = `${currentGame.playerMom.wins}`;

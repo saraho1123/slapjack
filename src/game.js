@@ -112,6 +112,7 @@ class Game {
       this.playerMom.updateWins();
     } else if (this.playerMom.hand.length === 0 && playerWhoSlaps.id === "Isaac") {
       this.playerIsaac.updateWins();
+      console.log(this.playerIsaac.wins);
     }
   }
 
