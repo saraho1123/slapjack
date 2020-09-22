@@ -53,8 +53,7 @@ function whoPlayed(event) {
 
 function displayPlayedCard() {
   if (currentGame.gamePile.length === 0) {
-    startGameButton.classList.remove('hidden');
-    gamePile.classList.add('hidden');
+    changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
   } else {
     gamePile.src = currentGame.gamePile[0].src;
   }
@@ -62,26 +61,22 @@ function displayPlayedCard() {
 
 function changePlayerShadow(currentPlayer) {
   if (currentPlayer === 'Isaac') {
-    isaacCardDeck.classList.remove('isaac-play-shadow');
-    momCardDeck.classList.add('mom-play-shadow');
+    changeHTMLClassProperty(momCardDeck, 'mom-play-shadow', isaacCardDeck, 'isaac-play-shadow');
   } else if (currentPlayer === 'Mom') {
-    momCardDeck.classList.remove('mom-play-shadow');
-    isaacCardDeck.classList.add('isaac-play-shadow');
+    changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
   }
 }
 
 function continuelayingCards(playerWithCards, playerWithoutCards) {
   var currentPlayer
     if (currentGame.playerIsaac.hand.length === 0) {
-      isaacCardDeck.classList.remove('isaac-play-shadow');
-      momCardDeck.classList.add('mom-play-shadow');
+      changeHTMLClassProperty(momCardDeck, 'mom-play-shadow', isaacCardDeck, 'isaac-play-shadow');
       playerWithCards.hand.push(currentGame.gamePile);
       currentGame.gamePile = [];
       playerWithCards.shuffleDeck(playerWithCards.hand);
       currentGame.currentPlayer = playerWithCards;
     } else if (currentGame.playerMom.hand.length === 0) {
-      momCardDeck.classList.remove('mom-play-shadow');
-      isaacCardDeck.classList.add('isaac-play-shadow');
+      changeHTMLClassProperty(isaacCardDeck, 'isaac-play-shadow', momCardDeck, 'mom-play-shadow');
       playerWithCards.hand.push(currentGame.gamePile);
       currentGame.gamePile = [];
       playerWithCards.shuffleDeck(playerWithCards.hand);
@@ -91,7 +86,6 @@ function continuelayingCards(playerWithCards, playerWithoutCards) {
 
 function layCard(currentPlayer, otherPlayer) {
   gameUpdateMessage.innerText = '';
-  continuelayingCards(currentPlayer, otherPlayer)
   changePlayerShadow(currentPlayer.id);
   currentGame.currentPlayer = currentPlayer;
   currentGame.updateGamePile();
@@ -151,13 +145,15 @@ function isaacWinMessage() {
   gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
   gamePile.src = './assets/isaac-win-image.jpeg';
   isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
+  newGameButton.classList.remove('hidden');
 };
 
 function momWinMessage() {
   var momTotalWins = document.querySelector('.mom-total-wins');
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
-  momTotalWins.innerText = `${currentGame.playerMom.wins}`
+  momTotalWins.innerText = `${currentGame.playerMom.wins}`;
+  newGameButton.classList.remove('hidden');
 };
 
 
