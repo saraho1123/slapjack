@@ -30,24 +30,18 @@ function playGame(event) {
   if (event.key === 'f' || event.key === 'j') {
     whoSlapped(event);
   } else if (event.key === 'q' || event.key === 'p') {
-    layCard(event)
+    whoPlayed(event)
   }
 }
 
-function layCard(event) {
-  // ASK TARAS: can I refactor to be more DRY, like slap()?
+function whoPlayed(event) {
   if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
-    changePlayerShadow(currentGame.playerIsaac.id);
-    currentGame.currentPlayer = currentGame.playerIsaac;
-    currentGame.updateGamePile();
-    displayPlayedCard();
+    layCard(currentGame.playerIsaac, currentGame.playerMom);
   } else if (event.key == 'p' && currentGame.currentPlayer.id === "Mom") {
-    changePlayerShadow(currentGame.playerMom.id);
-    currentGame.currentPlayer = currentGame.playerMom;
-    currentGame.updateGamePile();
-    displayPlayedCard();
+      layCard(currentGame.playerMom, currentGame.playerIsaac);
   }
 }
+
 
 function displayPlayedCard() {
   if (currentGame.gamePile.length === 0) {
@@ -60,13 +54,41 @@ function displayPlayedCard() {
 
 function changePlayerShadow(currentPlayer) {
   if (currentPlayer === 'Isaac') {
-    console.log(currentPlayer);
     isaacCardDeck.classList.remove('isaac-play-shadow');
     momCardDeck.classList.add('mom-play-shadow');
   } else if (currentPlayer === 'Mom') {
     momCardDeck.classList.remove('mom-play-shadow');
     isaacCardDeck.classList.add('isaac-play-shadow');
   }
+}
+
+function continuelayingCards(playerWithCards, playerWithoutCards) {
+  var currentPlayer 
+    if (currentGame.playerIsaac.hand.length === 0) {
+      isaacCardDeck.classList.remove('isaac-play-shadow');
+      momCardDeck.classList.add('mom-play-shadow');
+      playerWithCards.hand.push(currentGame.gamePile);
+      currentGame.gamePile = [];
+      playerWithCards.shuffleDeck(playerWithCards.hand);
+      currentGame.currentPlayer = playerWithCards;
+    } else if (currentGame.playerMom.hand.length === 0) {
+      momCardDeck.classList.remove('mom-play-shadow');
+      isaacCardDeck.classList.add('isaac-play-shadow');
+      playerWithCards.hand.push(currentGame.gamePile);
+      currentGame.gamePile = [];
+      playerWithCards.shuffleDeck(playerWithCards.hand);
+      currentGame.currentPlayer = playerWithCards;
+    }
+}
+
+function layCard(currentPlayer, otherPlayer) {
+  gameUpdateMessage.innerText = '';
+  continuelayingCards(currentPlayer, otherPlayer)
+  changePlayerShadow(currentPlayer.id);
+  currentGame.currentPlayer = currentPlayer;
+  currentGame.updateGamePile();
+  continuelayingCards()
+  displayPlayedCard();
 }
 
 function whoSlapped(event) {
@@ -109,11 +131,9 @@ function wrongSlap() {
 }
 
 function winningSlap(winner) {
-  console.log(winner);
   if (currentGame.playerIsaac.wonThisHand === true) {
     isaacWinMessage();
   } else if (currentGame.playerMom.wonThisHand === true) {
-    console.log('mom won');
     momWinMessage();
   }
 }
