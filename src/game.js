@@ -43,7 +43,6 @@ class Game {
   }
 
   updatePlayerTurn() {
-    // TODO: Could refactor IF time!
     if (this.currentPlayer.id === "Isaac" && this.playerMom.hand[0] !== undefined) {
       this.currentPlayer = this.playerMom;
     } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
@@ -66,6 +65,7 @@ class Game {
       this.doubleSlap(slapPlayer)
     } else if (this.gamePile[0].value === this.gamePile[2].value) {
       this.sandwichSlap(slapPlayer)
+    }
   }
 
   jackSlap(jackSlapPlayer) {
