@@ -65,19 +65,64 @@ img {
   box-shadow: 10px 10px purple;
 }
 
-p {
+.isaac-wins {
   text-align: center;
   font-size: x-large;
-}
-
-.isaac-wins {
   color: deepskyblue;
 }
 
 .mom-wins {
   color: purple;
   font-weight: bold;
+  text-align: center;
+  font-size: x-large;
 }
+
+footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.keys {
+  margin: 0 5em;
+  width: 8em;
+  height: 11em;
+  text-align: center;
+  border: orange 3px solid;
+  background: orange;
+  border-radius: 0.6em;
+}
+
+.use-keys {
+  font-size: xx-large;
+}
+
+.isaac-keys {
+  color: #0794f7;
+  /* background: orange;
+  border-radius: 0.6em; */
+  font-weight: 700;
+}
+
+.mom-keys {
+  color: purple;
+  font-weight: bold;
+  /* background: orange;
+  border-radius: 0.6em; */
+}
+
+.game-instructions {
+  padding: 0 3em;
+  width: 18em;
+  border: white solid 3px;
+}
+
+
+div {
+  width: max-content;
+}
+
+
 
 .hidden {
   display: none;
