@@ -28,21 +28,22 @@ Making my code SRP and DRY was quite a challenge on this project. I was able to 
 I greatly enjoyed this project. Not only was I able to complete the project as close to the spec as I was possibly able, I also got to play this game with my son for real!
 
 ## ScreenShots
+
 Start Screen with local storage showing:
-![image of start screen ](/readme-assests/start-screenshot-with-local-storage-wins.png)<br />
+![start-screenshot-with-local-storage-wins](https://user-images.githubusercontent.com/62810592/93959012-62b30600-fd1d-11ea-9806-5b7fb83ef7ec.png)
 
 Showing winning a slap:
-![image of start screen ](/readme-assests/mom-won-slap-screenshot.png)<br />
+![mom-won-slap-screenshot](https://user-images.githubusercontent.com/62810592/93958998-6050ac00-fd1d-11ea-8e20-6d2c3b13ac13.png)
+
 
 Showing an oops slap:
-![image of start screen ](/oops-slap-screenshot.png)<br />
+![oops-slap-screenshot](https://user-images.githubusercontent.com/62810592/93959004-6181d900-fd1d-11ea-95a3-174866ae7ecc.png)
 
 Showing winner!:
-![image of start screen ](/isaac-win-screenshot.png)<br />
+![isaac-win-screenshot](https://user-images.githubusercontent.com/62810592/93958994-5e86e880-fd1d-11ea-9f04-88904f9b6770.png)
 
 ## Credits
 Sarah Osgood: https://github.com/saraho1123
 
 Big thanks to my mentor, Taras! https://github.com/ttarlov <br />
 He was starting a new job as I worked on this project. Although he was not able to comment on my pull requests as much as he wanted, he made time to go over code and give me tips. I am very grateful!)
-
