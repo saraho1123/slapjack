@@ -56,8 +56,13 @@ class Game {
     } else if (this.currentPlayer.id === "Mom" && this.playerIsaac.hand[0] !== undefined) {
       this.currentPlayer = this.playerIsaac;
     } else if (this.playerIsaac.hand.length === 0 && this.playerMom.hand.length === 0) {
-        // alert("Please start a new game!")
         this.resetGameDeck();
+        // alert("Please start a new game!")
+        // debugger
+        // var repeatHand = this.currentPlayer.hand.concat(this.gamePile);
+        // this.currentPlayer.hand.push(repeatHand);
+        // this.gamePile = [];
+        // this.shuffleDeck(repeatHand);
     } else if (this.playerMom.hand[0] === undefined) {
         this.currentPlayer = this.playerIsaac;
     } else if (this.playerIsaac.hand[0] === undefined) {

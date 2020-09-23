@@ -107,8 +107,8 @@ function layCard(currentPlayer, otherPlayer) {
   gameUpdateMessage.innerText = '';
   changePlayerShadow(currentPlayer.id);
   currentGame.currentPlayer = currentPlayer;
-  currentGame.updateGamePile();
   continueLayingCards()
+  currentGame.updateGamePile();
   displayPlayedCard();
 }
 
