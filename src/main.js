@@ -5,15 +5,12 @@ var gameUpdateMessage = document.querySelector('.update-message');
 var isaacCardDeck = document.querySelector('.isaac-player-deck');
 var momCardDeck = document.querySelector('.mom-player-deck');
 var gamePile = document.querySelector('.game-pile');
-// var isaacWins = document.querySelector('.isaac-wins');
-// var momWins = document.querySelector('.mom-wins');
 var momTotalWins = document.querySelector('.mom-total-wins');
 var isaacTotalWins = document.querySelector('.isaac-total-wins');
 var startGameButton = document.querySelector('.start-button');
 var playAgainGameButton = document.querySelector('.again-button');
 
 // event listeners:
-
 startGameButton.addEventListener('click', startGame);
 playAgainGameButton.addEventListener('click', newGame);
 document.addEventListener('keydown', playGame);
@@ -29,7 +26,6 @@ function startGame() {
 
 function newGame() {
   currentGame.currentPlayer.saveWinsToStorage(currentGame.playerIsaac.wins, currentGame.playerMom.wins);
-  // currentGame.playerMom.saveWinsToStorage(currentGame.playerMom.wins);
   changeHTMLClassProperty(playAgainGameButton, 'hidden', startGameButton, 'hidden');
   gamePile.classList.add('hidden');
   gameUpdateMessage.innerText = 'Let\'s Play!';
@@ -51,6 +47,8 @@ function returnWinsFromLocalStorage() {
   }
 }
 
+returnWinsFromLocalStorage();
+
 function playGame(event) {
   if (event.key === 'f' || event.key === 'j') {
     whoSlapped(event);
@@ -58,8 +56,6 @@ function playGame(event) {
     whoPlayed(event)
   }
 }
-
-returnWinsFromLocalStorage();
 
 function whoPlayed(event) {
   if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
@@ -69,9 +65,13 @@ function whoPlayed(event) {
   }
 }
 
-
 function displayPlayedCard() {
-  if (currentGame.gamePile.length === 0) {
+  console.log(currentGame.gamePile.length);
+  if (currentGame.gamePile.length === 0 && currentGame.currentPlayer.hand.length === 0) {
+    changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
+    startGame();
+    gameUpdateMessage.innerText = 'You both ran out of cards, but you can keep playing!';
+  } else if (currentGame.gamePile.length === 0) {
     changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
   } else {
     gamePile.src = currentGame.gamePile[0].src;
@@ -99,8 +99,8 @@ function layCard(currentPlayer, otherPlayer) {
   gameUpdateMessage.innerText = '';
   changePlayerShadow(currentPlayer.id);
   currentGame.currentPlayer = currentPlayer;
-  currentGame.updateGamePile();
   continueLayingCards()
+  currentGame.updateGamePile();
   displayPlayedCard();
 }
 
@@ -114,18 +114,16 @@ function whoSlapped(event) {
     currentGame.playerIsaac.slapped = false;
     slap(currentGame.playerMom, currentGame.playerIsaac);
   }
-  // ASK TARAS: This does not seem very DRY, but I cannot think of any other way to do this.
-  // At least I only do it once? And it makes slap() really DRY and SRP!
 }
 
 function slap(playerWhoSlapped, otherPlayer) {
-  var gameDeck = document.querySelector('.game-deck');
+  debugger
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
     winningSlap();
   } else {
-    wrongSlap();
+    wrongSlapMessage(playerWhoSlapped, otherPlayer);
   }
 }
 
@@ -138,9 +136,15 @@ function updateSlapMessage(player) {
   }
 }
 
-function wrongSlap() {
-  gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
-  gamePile.src = currentGame.gamePile[0].src;
+function wrongSlapMessage(wrongSlapPlayer, noSlapPlayer) {
+  if (currentGame.slapIsCorrect === false || noSlapPlayer.slapped === false) {
+    gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+    gamePile.src = currentGame.gamePile[0].src;
+  } else {
+    gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
+    gamePile.src = './assets/oops-smiley.jpg';
+  }
+  currentGame.slapIsCorrect = true;
 }
 
 function winningSlap() {
@@ -152,7 +156,6 @@ function winningSlap() {
 }
 
 function isaacWinMessage() {
-  // var isaacTotalWins = document.querySelector('.isaac-total-wins');
   gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
   gamePile.src = './assets/isaac-win-image.jpeg';
   isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
@@ -160,7 +163,6 @@ function isaacWinMessage() {
 };
 
 function momWinMessage() {
-  // var momTotalWins = document.querySelector('.mom-total-wins');
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
   momTotalWins.innerText = `${currentGame.playerMom.wins}`;
@@ -170,9 +172,4 @@ function momWinMessage() {
 function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
   element1.classList.add(elementClass1);
   element2.classList.remove(elementClass2);
-  // checking for undefined values:
-  // have an if that checks for undefined
-  // if (element.classList !== undefined) {
-  // run the code
-  // }then don't need an else
 }
