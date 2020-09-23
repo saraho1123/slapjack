@@ -5,15 +5,12 @@ var gameUpdateMessage = document.querySelector('.update-message');
 var isaacCardDeck = document.querySelector('.isaac-player-deck');
 var momCardDeck = document.querySelector('.mom-player-deck');
 var gamePile = document.querySelector('.game-pile');
-// var isaacWins = document.querySelector('.isaac-wins');
-// var momWins = document.querySelector('.mom-wins');
 var momTotalWins = document.querySelector('.mom-total-wins');
 var isaacTotalWins = document.querySelector('.isaac-total-wins');
 var startGameButton = document.querySelector('.start-button');
 var playAgainGameButton = document.querySelector('.again-button');
 
 // event listeners:
-
 startGameButton.addEventListener('click', startGame);
 playAgainGameButton.addEventListener('click', newGame);
 document.addEventListener('keydown', playGame);
@@ -29,7 +26,6 @@ function startGame() {
 
 function newGame() {
   currentGame.currentPlayer.saveWinsToStorage(currentGame.playerIsaac.wins, currentGame.playerMom.wins);
-  // currentGame.playerMom.saveWinsToStorage(currentGame.playerMom.wins);
   changeHTMLClassProperty(playAgainGameButton, 'hidden', startGameButton, 'hidden');
   gamePile.classList.add('hidden');
   gameUpdateMessage.innerText = 'Let\'s Play!';
@@ -61,8 +57,6 @@ function playGame(event) {
   }
 }
 
-returnWinsFromLocalStorage();
-
 function whoPlayed(event) {
   if (event.key == 'q' && currentGame.currentPlayer.id === "Isaac") {
     layCard(currentGame.playerIsaac, currentGame.playerMom);
@@ -70,8 +64,6 @@ function whoPlayed(event) {
       layCard(currentGame.playerMom, currentGame.playerIsaac);
   }
 }
-
-
 
 function displayPlayedCard() {
   console.log(currentGame.gamePile.length);
@@ -122,12 +114,9 @@ function whoSlapped(event) {
     currentGame.playerIsaac.slapped = false;
     slap(currentGame.playerMom, currentGame.playerIsaac);
   }
-  // ASK TARAS: This does not seem very DRY, but I cannot think of any other way to do this.
-  // At least I only do it once? And it makes slap() really DRY and SRP!
 }
 
 function slap(playerWhoSlapped, otherPlayer) {
-  // var gameDeck = document.querySelector('.game-deck');
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
@@ -147,19 +136,6 @@ function updateSlapMessage(player) {
 }
 
 function wrongSlap() {
-  // if (currentGame.gamePile.length > 3) {
-  //   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
-  //   gamePile.src = './assets/oops-smiley.jpg';
-  // } else if (currentGame.gamePile.length < 3 && !jack && !double && !sandwich) {
-  //   var jack = currentGame.gamePile[0].suit.includes("jack");
-  //   var double = this.gamePile[0].value === this.gamePile[1].value;
-  //   var sandwich = this.gamePile[0].value === this.gamePile[2].value;
-  //   gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
-  //   gamePile.src = currentGame.gamePile[0].src;
-  // }
-  // var jack = currentGame.gamePile[0].suit.includes("jack");
-  // var double = this.gamePile[0].value === this.gamePile[1].value;
-  // var sandwich = this.gamePile[0].value === this.gamePile[2].value;
   if (currentGame.currentPlayer.slapIsCorrect === false || currentGame.otherPlayer.slapIsCorrect === false) {
     gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
     gamePile.src = currentGame.gamePile[0].src;
@@ -178,7 +154,6 @@ function winningSlap() {
 }
 
 function isaacWinMessage() {
-  // var isaacTotalWins = document.querySelector('.isaac-total-wins');
   gameUpdateMessage.innerText = '🤠🐉ISAAC WON!!!!🐉🤠';
   gamePile.src = './assets/isaac-win-image.jpeg';
   isaacTotalWins.innerText = `${currentGame.playerIsaac.wins}`;
@@ -186,7 +161,6 @@ function isaacWinMessage() {
 };
 
 function momWinMessage() {
-  // var momTotalWins = document.querySelector('.mom-total-wins');
   gameUpdateMessage.innerText = '🥳🟣MOM WON!!!🟣🥳';
   gamePile.src = './assets/mom-win-image.jpeg';
   momTotalWins.innerText = `${currentGame.playerMom.wins}`;
@@ -196,9 +170,4 @@ function momWinMessage() {
 function changeHTMLClassProperty(element1, elementClass1, element2, elementClass2) {
   element1.classList.add(elementClass1);
   element2.classList.remove(elementClass2);
-  // checking for undefined values:
-  // have an if that checks for undefined
-  // if (element.classList !== undefined) {
-  // run the code
-  // }then don't need an else
 }
