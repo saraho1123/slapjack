@@ -1,10 +1,3 @@
-
-
-// TODO: If 1 player is out of cards and the other player lays all their cards
-// they need to be able to shuffle their cards and keep playing.
-
-// TODO: If alert runs, replace the start button!
-
 // Add instruction for how to play game and
 // which keys do what
 
@@ -57,12 +50,6 @@ class Game {
       this.currentPlayer = this.playerIsaac;
     } else if (this.playerIsaac.hand.length === 0 && this.playerMom.hand.length === 0) {
         this.resetGameDeck();
-        // alert("Please start a new game!")
-        // debugger
-        // var repeatHand = this.currentPlayer.hand.concat(this.gamePile);
-        // this.currentPlayer.hand.push(repeatHand);
-        // this.gamePile = [];
-        // this.shuffleDeck(repeatHand);
     } else if (this.playerMom.hand[0] === undefined) {
         this.currentPlayer = this.playerIsaac;
     } else if (this.playerIsaac.hand[0] === undefined) {
@@ -70,26 +57,16 @@ class Game {
     }
   }
 
-
-    // numberOfCardsInPile() {
-    //   if (this.gamePile.length > 2 ) {
-    //     playSlapJack()
-    //   }
-    // }
-    playSlapJack(slapPlayer, otherPlayer) {
-      // this has a bug! error if a slap attempt is made before 3 cards are played.
-      if (this.gamePile.length < 3 && !this.gamePile[0].suit.includes("jack")) {
-        this.wrongSlap(slapPlayer, otherPlayer)
-      } else if (this.gamePile[0].suit.includes("jack")) {
-        this.jackSlap(slapPlayer)
-      } else if (this.gamePile[0].value === this.gamePile[1].value) {
-        this.doubleSlap(slapPlayer)
-      } else if (this.gamePile[0].value === this.gamePile[2].value) {
-        this.sandwichSlap(slapPlayer)
-      // } else {
-      //   this.wrongSlap(slapPlayer, otherPlayer)
-      }
-    }
+  playSlapJack(slapPlayer, otherPlayer) {
+    if (this.gamePile.length < 3 && !this.gamePile[0].suit.includes("jack")) {
+      this.wrongSlap(slapPlayer, otherPlayer)
+    } else if (this.gamePile[0].suit.includes("jack")) {
+      this.jackSlap(slapPlayer)
+    } else if (this.gamePile[0].value === this.gamePile[1].value) {
+      this.doubleSlap(slapPlayer)
+    } else if (this.gamePile[0].value === this.gamePile[2].value) {
+      this.sandwichSlap(slapPlayer)
+  }
 
   jackSlap(jackSlapPlayer) {
     this.updateATrueConditionSlap(jackSlapPlayer);
@@ -111,8 +88,6 @@ class Game {
     var wrongSlappedCard = this.gamePile.shift();
     otherPlayer.hand.push(wrongSlappedCard);
     this.slapIsCorrect = false;
-    // need function to end game if player w/ no cards slaps on a non-Jack!
-
   }
 
   updateATrueConditionSlap(playerWhoSlaps) {
