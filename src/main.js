@@ -67,7 +67,7 @@ function whoPlayed(event) {
 
 function displayPlayedCard() {
   console.log(currentGame.gamePile.length);
-  if (currentGame.gamePile.length === 0 && currentGame.currentPlayer.hand.length <= 1) {
+  if (currentGame.gamePile.length === 0 && currentGame.currentPlayer.hand.length === 0) {
     changeHTMLClassProperty(startGameButton, 'hidden', gamePile, 'hidden');
     startGame();
     gameUpdateMessage.innerText = 'You both ran out of cards, but you can keep playing!';
@@ -117,12 +117,13 @@ function whoSlapped(event) {
 }
 
 function slap(playerWhoSlapped, otherPlayer) {
+  debugger
   currentGame.playSlapJack(playerWhoSlapped, otherPlayer);
   if (playerWhoSlapped.slapped === true && currentGame.slapIsCorrect === true) {
     updateSlapMessage(playerWhoSlapped)
     winningSlap();
   } else {
-    wrongSlap();
+    wrongSlapMessage(playerWhoSlapped, otherPlayer);
   }
 }
 
@@ -135,14 +136,15 @@ function updateSlapMessage(player) {
   }
 }
 
-function wrongSlap() {
-  if (currentGame.currentPlayer.slapIsCorrect === false || currentGame.otherPlayer.slapIsCorrect === false) {
+function wrongSlapMessage(wrongSlapPlayer, noSlapPlayer) {
+  if (currentGame.slapIsCorrect === false || noSlapPlayer.slapped === false) {
     gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
     gamePile.src = currentGame.gamePile[0].src;
   } else {
     gameUpdateMessage.innerText = 'Oops! That slap lost you a card!';
     gamePile.src = './assets/oops-smiley.jpg';
   }
+  currentGame.slapIsCorrect = true;
 }
 
 function winningSlap() {

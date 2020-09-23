@@ -58,13 +58,15 @@ class Game {
 
   playSlapJack(slapPlayer, otherPlayer) {
     if (this.gamePile.length < 3 && !this.gamePile[0].suit.includes("jack")) {
-      this.wrongSlap(slapPlayer, otherPlayer)
+      this.wrongSlap(slapPlayer, otherPlayer);
     } else if (this.gamePile[0].suit.includes("jack")) {
-      this.jackSlap(slapPlayer)
+      this.jackSlap(slapPlayer);
     } else if (this.gamePile[0].value === this.gamePile[1].value) {
-      this.doubleSlap(slapPlayer)
+      this.doubleSlap(slapPlayer);
     } else if (this.gamePile[0].value === this.gamePile[2].value) {
-      this.sandwichSlap(slapPlayer)
+      this.sandwichSlap(slapPlayer);
+    } else {
+      this.wrongSlap(slapPlayer, otherPlayer);
     }
   }
 
