@@ -28,13 +28,17 @@ Making my code SRP and DRY was quite a challenge on this project. I was able to 
 I greatly enjoyed this project. Not only was I able to complete the project as close to the spec as I was possibly able, I also got to play this game with my son for real!
 
 ## ScreenShots
-Display :
-![image of ](/directory/file-name.png)<br />
+Start Screen with local storage showing:
+![image of start screen ](/readme-assests/start-screenshot-with-local-storage-wins.png)<br />
 
-Shows functionalities of the app showing a win:
-![gif of Functionality](/directory/file-name.png)<br />
+Showing winning a slap:
+![image of start screen ](/readme-assests/mom-won-slap-screenshot.png)<br />
 
+Showing an oops slap:
+![image of start screen ](/oops-slap-screenshot.png)<br />
 
+Showing winner!:
+![image of start screen ](/isaac-win-screenshot.png)<br />
 
 ## Credits
 Sarah Osgood: https://github.com/saraho1123
