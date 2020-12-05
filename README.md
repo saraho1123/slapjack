@@ -1,9 +1,9 @@
 # SlapJack - Final Solo Project for Turing Mod 1
 
-### The Link to our github pages can be found here
+### The Link to my github pages can be found here
 note: I will add this after the project is over and I switch this repo to public.
 
-### The link to our repo can be found there
+### The link to my repo can be found there
 https://github.com/saraho1123/slapjack
 
 ### The link to the project description can be found here
